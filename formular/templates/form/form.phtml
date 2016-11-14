@@ -1,0 +1,73 @@
+<form>
+    <div class="col-md-6">
+        <div class="form-group">
+            <label for="nazov-e-aukcie">Názov E-aukcie</label>
+            <input class="form-control" type="text" placeholder="Názov E-aukcie" id="nazov-e-aukcie">
+        </div>
+        <div class="form-group">
+            <label for="vyhlasovatel">Vyhlasovateľ</label>
+            <input class="form-control" type="text" placeholder="Vyhlasovateľ" id="vyhlasovatel">
+        </div>
+        <div class="form-group">
+            <label for="prevadzkovatel-e-aukcii">Prevádzkovateľ e-aukcií</label>
+            <input class="form-control" type="text" placeholder="Prevádzkovateľ e-aukcií" id="prevadzkovatel-e-aukcii">
+        </div>
+        <div class="form-group">
+            <label for="predmet-obstravania">Predmet obstrávania</label>
+            <input class="form-control" type="text" placeholder="Názov E-aukcie" id="predmet-obstravania">
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group row">
+            <label for="termin-dorucenia-podkladov">Termín doručenia podkladov</label>
+            <input class="form-control" type="datetime-local" id="termin-dorucenia-podkladov">
+        </div>
+        <div class="form-group row">
+            <label for="termin-odovzdaniea-cenovej-ponuky">Termín odovzdania cenovej ponuky</label>
+            <input class="form-control" type="datetime-local" id="termin-odovzdaniea-cenovej-ponuky">
+        </div>
+        <div class="form-group row">
+            <label for="termin-e-aukcie">Termín e-aukcie</label>
+            <input class="form-control" type="datetime-local" id="termin-e-aukcie">
+        </div>
+    </div>
+    <div class="col-md-12">
+        <label for="pozadovane-podklady">Požadované podklady</label>
+        <textarea class="form-control" rows="5" id="pozadovane-podklady"></textarea>
+    </div>
+    <div class="col-md-12">
+        <label for="kriteria-priebeh-aukcie">Kritériá, priebeh aukcie</label>
+        <textarea class="form-control" rows="5" id="kriteria-priebeh-aukcie"></textarea>
+    </div>
+    <hr class="col-md-12" size="5">
+    <div class="col-md-4">
+        <div class="form-group">
+            <label for="meno-uchadzaca">Meno uchádzača</label>
+            <input class="form-control" type="text" placeholder="Meno uchádzača" id="meno-uchadzaca">
+        </div>
+        <div class="form-group">
+            <label for="kontaktna-osoba">Kontaktná osoba</label>
+            <input class="form-control" type="text" placeholder="Kontaktná osoba" id="kontaktna-osoba">
+        </div>
+        <div class="form-group">
+            <label for="kontakt-tel-c">Kontaktné tel. č.</label>
+            <input class="form-control" type="tel" id="kontakt-tel-c">
+        </div>
+    </div>
+    <div class="col-md-8">
+        <div class="form-group">
+
+            <label>Select Files</label>
+            <input type="file" multiple="multiple" id="multipleFile">
+            <span id="clear" class="btn btn-warning btn-xs">
+                Clear the files selection
+            </span>
+        </div>
+        <div class="form-group">
+            <a href="#" class=" btn btn-primary">Stiahnúť inf. dokumenty</a>
+        </div>
+        <div class="form-group">
+            <input type="button" class="btn btn-primary" name="send" value="Odoslať">
+        </div>
+    </div>
+</form>
