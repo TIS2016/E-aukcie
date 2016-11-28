@@ -56,5 +56,12 @@ class DBContext {
 	  ResultSet r = s.executeQuery();
 	  return r;
   }
+  
+  public static ResultSet getSvkNames() throws SQLException{
+	  PreparedStatement s;
+	  s = DBContext.getConnection().prepareStatement("Select * from c_action");
+	  ResultSet r = s.executeQuery();
+	  return r;
+  }
 
 }

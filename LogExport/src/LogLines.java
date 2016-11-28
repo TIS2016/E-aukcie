@@ -1,6 +1,7 @@
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import  java.io.*;
 import  org.apache.poi.hssf.usermodel.HSSFSheet;
 import  org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -16,11 +17,14 @@ public class LogLines {
 	static DBContext connect;
 	ArrayList<AuctionLine> lines = new ArrayList<>();
 	int id;
+	HashMap<String,String> actions = new HashMap<>();
 	
 	public void readLines() throws SQLException{
 		connect = new DBContext();
 		connect.init("postgres", "tistis");
 		ResultSet r = DBContext.getLines(id);
+		generateMap();
+		
 		 while (r.next()) {
 			 
 	          String source = r.getString("value");
@@ -29,10 +33,24 @@ public class LogLines {
 	          String user = r.getString("fk_user");
 	          
 	          Object a = new Jackson2Example(action,source).getValue();
-	          
-	          AuctionLine line = new AuctionLine(t,action,user, a);
+	          AuctionLine line = new AuctionLine(t,actions.get(action),user, a);
 	          lines.add(line);
 	          
+	      }
+	      r.close(); 
+	}
+	
+	public void generateMap() throws SQLException{
+		connect = new DBContext();
+		connect.init("postgres", "tistis");
+		ResultSet r = DBContext.getSvkNames();
+		while (r.next()) {
+			 
+	          String eng = r.getString("id");
+	          String svk = r.getString("description");
+	          
+	          
+	          actions.put(eng, svk);
 	      }
 	      r.close(); 
 	}
