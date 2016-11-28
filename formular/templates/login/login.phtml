@@ -1,0 +1,23 @@
+<?php
+/**
+ * @var String $message
+ */
+?>
+
+<div class="container">
+    <form class="form-signin" method="post">
+        <?php
+        if ($message != null):?>
+            <div class="alert alert-danger">
+                <strong>Error:</strong> <?= $message['message'] ?>
+            </div>
+        <?php endif; ?>
+        <h2 class="form-signin-heading">Please sign in</h2>
+        <label for="inputLoginName" class="sr-only">Login name</label>
+        <input type="text" name="loginName" id="inputLoginName" class="form-control" placeholder="Login Name" required
+               autofocus>
+        <label for="inputPassword" class="sr-only">Password</label>
+        <input type="password" name="loginPassword" id="inputPassword" class="form-control" placeholder="Password">
+        <input class="btn btn-lg btn-primary btn-block" type="submit" name="loginSubmit" value="Sign in">
+    </form>
+</div>

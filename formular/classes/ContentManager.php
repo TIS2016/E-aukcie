@@ -29,7 +29,10 @@ class ContentManager
     {
         $url = explode('/', $_SERVER['REQUEST_URI']);
 
-        $controllers = array('Controller\\FormController');
+        $controllers = array(
+            'Controller\\FormController',
+            'Controller\\LoginController'
+            );
 
 
         foreach ($controllers as $controllerClass) {

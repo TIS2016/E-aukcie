@@ -1,43 +1,60 @@
-<form>
+<?php
+use DataObject\AdminFromData;
+
+/**
+ * @var $data AdminFromData
+ */
+?>
+
+<form method="post">
     <div class="col-md-6">
         <div class="form-group">
             <label for="nazov-e-aukcie">Názov E-aukcie</label>
-            <input class="form-control" type="text" placeholder="Názov E-aukcie" id="nazov-e-aukcie">
+            <input class="form-control" type="text" placeholder="Názov E-aukcie" id="nazov-e-aukcie" name="nazov"
+                   value="<?= $data->getNazov() ?>">
         </div>
         <div class="form-group">
             <label for="vyhlasovatel">Vyhlasovateľ</label>
-            <input class="form-control" type="text" placeholder="Vyhlasovateľ" id="vyhlasovatel">
+            <input class="form-control" type="text" placeholder="Vyhlasovateľ" id="vyhlasovatel" name="vyhlasovatel"
+                   value="<?= $data->getVyhlasovatel() ?>">
         </div>
         <div class="form-group">
             <label for="prevadzkovatel-e-aukcii">Prevádzkovateľ e-aukcií</label>
-            <input class="form-control" type="text" placeholder="Prevádzkovateľ e-aukcií" id="prevadzkovatel-e-aukcii">
+            <input class="form-control" type="text" placeholder="Prevádzkovateľ e-aukcií" id="prevadzkovatel-e-aukcii"
+                   name="prevadzkovatel" value="<?= $data->getPrevadzkovatel() ?>">
         </div>
         <div class="form-group">
             <label for="predmet-obstravania">Predmet obstrávania</label>
-            <input class="form-control" type="text" placeholder="Názov E-aukcie" id="predmet-obstravania">
+            <input class="form-control" type="text" placeholder="Predmet obstrávania" id="predmet-obstravania"
+                   name="predmet" value="<?= $data->getPredmet() ?>">
         </div>
     </div>
     <div class="col-md-6">
-        <div class="form-group row">
+        <div class="form-group">
             <label for="termin-dorucenia-podkladov">Termín doručenia podkladov</label>
-            <input class="form-control" type="datetime-local" id="termin-dorucenia-podkladov">
+            <input class="form-control" type="date" id="termin-dorucenia-podkladov" name="temrinDorucenia"
+                   value="<?= $data->getTerminDorucenia() ?>">
         </div>
-        <div class="form-group row">
+        <div class="form-group">
             <label for="termin-odovzdaniea-cenovej-ponuky">Termín odovzdania cenovej ponuky</label>
-            <input class="form-control" type="datetime-local" id="termin-odovzdaniea-cenovej-ponuky">
+            <input class="form-control" type="date" id="termin-odovzdaniea-cenovej-ponuky"
+                   name="terminOdovzdania" value="<?= $data->getTerminOdovzdania() ?>">
         </div>
-        <div class="form-group row">
+        <div class="form-group">
             <label for="termin-e-aukcie">Termín e-aukcie</label>
-            <input class="form-control" type="datetime-local" id="termin-e-aukcie">
+            <input class="form-control" type="date" id="termin-e-aukcie" name="terminAukcie"
+                   value="<?= $data->getTerminAukcie() ?>">
         </div>
     </div>
     <div class="col-md-12">
         <label for="pozadovane-podklady">Požadované podklady</label>
-        <textarea class="form-control" rows="5" id="pozadovane-podklady"></textarea>
+        <textarea class="form-control" rows="5" id="pozadovane-podklady"
+                  name="pozadovanePodklady"><?= $data->getPozadovanePodklady() ?></textarea>
     </div>
     <div class="col-md-12">
         <label for="kriteria-priebeh-aukcie">Kritériá, priebeh aukcie</label>
-        <textarea class="form-control" rows="5" id="kriteria-priebeh-aukcie"></textarea>
+        <textarea class="form-control" rows="5" id="kriteria-priebeh-aukcie"
+                  name="kriteria"><?= $data->getPredmet() ?></textarea>
     </div>
     <hr class="col-md-12" size="5">
     <div class="col-md-4">
@@ -67,7 +84,7 @@
             <a href="#" class=" btn btn-primary">Stiahnúť inf. dokumenty</a>
         </div>
         <div class="form-group">
-            <input type="button" class="btn btn-primary" name="send" value="Odoslať">
+            <input type="submit" class="btn btn-primary" name="sendData" value="Odoslať">
         </div>
     </div>
 </form>
