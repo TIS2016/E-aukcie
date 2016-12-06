@@ -3,6 +3,7 @@ use Controller\ErrorController;
 use Controller\FooterController;
 use Controller\HeadController;
 use Controller\NavController;
+use Model\ModelException;
 
 class ContentManager
 {
@@ -31,21 +32,26 @@ class ContentManager
 
         $controllers = array(
             'Controller\\FormController',
-            'Controller\\LoginController'
-            );
+            'Controller\\LoginController',
+            'Controller\\ProjectController'
+        );
 
 
         foreach ($controllers as $controllerClass) {
             $action = $controllerClass::getAction($url);
-            if ($action !== null) {
-                $controller = new $controllerClass();
-                $functionName = 'do' . ucfirst($action);
-                $this->contentContent = $controller->$functionName($url);
-                break;
+            try {
+                if ($action !== null) {
+                    $controller = new $controllerClass();
+                    $functionName = 'do' . ucfirst($action);
+                    $this->contentContent = $controller->$functionName($url);
+                    break;
+                }
+            } catch (ModelException $e){
+                $functionName = null;
             }
         }
 
-        if (!isset($functionName)) {
+        if (!isset($functionName) || $functionName === null) {
             header('HTTP/1.1 404 Not Found');
             $controller = new ErrorController();
             $this->contentContent = $controller->doNotFound($url);

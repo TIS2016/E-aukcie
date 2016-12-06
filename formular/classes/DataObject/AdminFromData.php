@@ -9,6 +9,22 @@ use Model\ModelException;
 class AdminFromData
 {
     /**
+     * @var int
+     */
+    private $project;
+    /**
+     * @var string
+     */
+    private $currency;
+    /**
+     * @var string
+     */
+    private $status;
+    /**
+     * @var string
+     */
+    private $type;
+    /**
      * @var string
      */
     private $nazov;
@@ -54,6 +70,78 @@ class AdminFromData
     private $terminAukcie;
 
     /**
+     * @return int
+     */
+    public function getProject()
+    {
+        return $this->project;
+    }
+
+    /**
+     * @param int $project
+     * @return $this
+     */
+    public function setProject($project)
+    {
+        $this->project = $project;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCurrency()
+    {
+        return $this->currency;
+    }
+
+    /**
+     * @param string $currency
+     * @return $this
+     */
+    public function setCurrency($currency)
+    {
+        $this->currency = $currency;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * @param string $status
+     * @return $this
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * @param string $type
+     * @return $this
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+        return $this;
+    }
+
+    /**
      * @return string
      */
     public function getNazov()
@@ -63,10 +151,12 @@ class AdminFromData
 
     /**
      * @param string $nazov
+     * @return $this
      */
     public function setNazov($nazov)
     {
         $this->nazov = $nazov;
+        return $this;
     }
 
     /**
@@ -218,9 +308,14 @@ class AdminFromData
     /**
      * @return array
      */
-    public function getDataArray(){
+    public function getDataArray()
+    {
         $res = array();
-        $res['name'] = $this->nazov;
+        $res['projectId'] = $this->project;
+        $res['auctionCurrency'] = $this->currency;
+        $res['auctionStatus'] = $this->status;
+        $res['auctionType'] = $this->type;
+        $res['nazov'] = $this->nazov;
         $res['vyhlasovatel'] = $this->vyhlasovatel;
         $res['prevadzkovatel'] = $this->prevadzkovatel;
         $res['predmet'] = $this->predmet;

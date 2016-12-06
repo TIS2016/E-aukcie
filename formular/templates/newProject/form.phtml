@@ -1,0 +1,61 @@
+<?php
+use DataObject\ClientData;
+use DataObject\OwnerData;
+
+/**
+ * @var ClientData[] $clients
+ * @var OwnerData[] $owners
+ */
+
+?>
+<form method="post">
+    <div class="col-md-6">
+        <div class="form-group">
+            <label for="client">Klient:</label>
+            <select class="form-control" id="client" name="client">
+                <?php foreach ($clients as $client): ?>
+                    <option value="<?= $client->getId() ?>"><?= $client->getName() ?></option>
+                <?php endforeach; ?>
+            </select>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <label for="owner">Majitel projektu:</label>
+            <select class="form-control" id="owner" name="owner">
+                <?php foreach ($owners as $owner): ?>
+                    <option value="<?= $owner->getLogin() ?>"><?= $owner->getName() ?></option>
+                <?php endforeach; ?>
+            </select>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label for="name">Názov:</label>
+            <input class="form-control" type="text" placeholder="Názov" id="name" name="name" value="">
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label for="dateFrom">Od:</label>
+            <input class="form-control" type="date" id="dateFrom" name="dateFrom">
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label for="dateTo">Do:</label>
+            <input class="form-control" type="date" id="dateTo" name="dateTo">
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="form-group">
+            <label for="description">Popis:</label>
+            <textarea class="form-control" rows="5" id="description" name="description"></textarea>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="form-group">
+            <input type="submit" class="btn btn-primary" name="sendProjectData" value="Odoslať">
+        </div>
+    </div>
+</form>

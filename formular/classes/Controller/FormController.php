@@ -3,7 +3,9 @@
 namespace Controller;
 
 
+use Model\AuctionFkModel;
 use Model\FormModel;
+use Model\ProjectModel;
 use View\Template;
 
 class FormController extends AbstractController
@@ -15,8 +17,11 @@ class FormController extends AbstractController
     public static function getAction($urlParts)
     {
         if ($urlParts[FIRST_URL_INDEX] == 'form') {
+            if (isset($_SESSION['admin']) && !$_SESSION['admin'] && !isset($urlParts[FIRST_URL_INDEX + 1])) {
+                return null;
+            }
             if (!isset($_SESSION['logged']) || !$_SESSION['logged']) {
-                if (isset($urlParts[FIRST_URL_INDEX + 1])) {
+                if (isset($urlParts[FIRST_URL_INDEX + 1]) && $urlParts[FIRST_URL_INDEX + 1] != '') {
                     $_SESSION['auctionID'] = $urlParts[FIRST_URL_INDEX + 1];
                 }
                 header("Location:" . '/login');
@@ -29,13 +34,38 @@ class FormController extends AbstractController
 
     public function doShow($urlParts)
     {
-        $model = new FormModel();
+        $formModel = new FormModel();
+        $projectModel = new ProjectModel();
+        $auctionFkModel = new AuctionFkModel();
+        $message = null;
+
         if (isset($_SESSION['admin']) && $_SESSION['admin'] && isset($_POST['sendData'])) {
-            $model->saveAdminData($_POST);
+            $lastId = $formModel->saveAdminData($_POST);
+            $message = array(
+                'message' => 'Aukcia bola pridaná!',
+                'url' => $lastId
+            );
         }
-        $data = $model->getFormData($urlParts);
+
+        if (isset($_SESSION['admin']) && !$_SESSION['admin'] && isset($_POST['sendData'])) {
+            $formModel->saveClientData($_POST);
+        }
+
+        $data = $formModel->getFormData($urlParts);
+        $projects = $projectModel->getProjects();
+        $currencies = $auctionFkModel->getCurrencies();
+        $types = $auctionFkModel->getTypes();
+        $statuses = $auctionFkModel->getStatuses();
+
         $view = new Template('form/form');
+
         $view->assign('data', $data);
+        $view->assign('projects', $projects);
+        $view->assign('currencies', $currencies);
+        $view->assign('types', $types);
+        $view->assign('statuses', $statuses);
+        $view->assign('message', $message);
+
         return $view->render();
     }
 

@@ -1,79 +1,155 @@
 <?php
 use DataObject\AdminFromData;
+use DataObject\AuctionCurrencyData;
+use DataObject\AuctionStatusData;
+use DataObject\AuctionTypeData;
+use DataObject\ProjectData;
 
 /**
- * @var $data AdminFromData
+ * @var AdminFromData $data
+ * @var ProjectData[] $projects
+ * @var AuctionCurrencyData[] $currencies
+ * @var AuctionStatusData[] $statuses
+ * @var AuctionTypeData[] $types
+ * @var string $message
  */
-?>
+
+$editable = (isset($_SESSION['admin']) && $_SESSION['admin']) ? "" : "readonly";
+if ($message != null):?>
+    <div class="alert alert-success">
+        <strong>Info:</strong> <?= $message['message'] ?>
+        <a href="/form/<?= $message['url'] ?>"><?= $_SERVER['SERVER_NAME'] . '/form/' . $message['url'] ?></a>
+    </div>
+<?php endif; ?>
 
 <form method="post">
+    <?php if (isset($_SESSION['admin']) && $_SESSION['admin']): ?>
+        <div class="col-md-12"><a class="btn btn-default" href="/newProject">Nový projekt</a></div>
+    <?php endif; ?>
+    <div class="col-md-3">
+        <div class="form-group">
+            <label for="projectId">Projekt:</label>
+            <select class="form-control" id="projectId" name="projectId" <?= $editable ?>>
+                <?php foreach ($projects as $project): ?>
+                    <option value="<?= $project->getId() ?>"<?php if ($data->getProject() == $project->getId()) echo 'selected' ?>><?= $project->getName() ?></option>
+                <?php endforeach; ?>
+            </select>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="form-group">
+            <label for="auctionCurrency">Mena:</label>
+            <select class="form-control" id="auctionCurrency" name="auctionCurrency" <?= $editable ?>>
+                <?php foreach ($currencies as $currency): ?>
+                    <option value="<?= $currency->getId() ?>"<?php if ($data->getCurrency() == $currency->getId()) echo 'selected' ?>><?= $currency->getDescription() ?></option>
+                <?php endforeach; ?>
+            </select>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="form-group">
+            <label for="auctionStatus">Státus:</label>
+            <select class="form-control" id="auctionStatus" name="auctionStatus" <?= $editable ?>>
+                <?php foreach ($statuses as $status): ?>
+                    <option value="<?= $status->getId() ?>"<?php if ($data->getStatus() == $status->getId()) echo 'selected' ?>><?= $status->getDescription() ?></option>
+                <?php endforeach; ?>
+            </select>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="form-group">
+            <label for="auctionType">Typ:</label>
+            <select class="form-control" id="auctionType" name="auctionType" <?= $editable ?>>
+                <?php foreach ($types as $type): ?>
+                    <option value="<?= $type->getId() ?>"<?php if ($data->getType() == $type->getId()) echo 'selected' ?>><?= $type->getDescription() ?></option>
+                <?php endforeach; ?>
+            </select>
+        </div>
+    </div>
     <div class="col-md-6">
         <div class="form-group">
             <label for="nazov-e-aukcie">Názov E-aukcie</label>
             <input class="form-control" type="text" placeholder="Názov E-aukcie" id="nazov-e-aukcie" name="nazov"
-                   value="<?= $data->getNazov() ?>">
+                   value="<?= $data->getNazov() ?>" <?= $editable ?>>
         </div>
         <div class="form-group">
             <label for="vyhlasovatel">Vyhlasovateľ</label>
             <input class="form-control" type="text" placeholder="Vyhlasovateľ" id="vyhlasovatel" name="vyhlasovatel"
-                   value="<?= $data->getVyhlasovatel() ?>">
+                   value="<?= $data->getVyhlasovatel() ?>" <?= $editable ?>>
         </div>
         <div class="form-group">
             <label for="prevadzkovatel-e-aukcii">Prevádzkovateľ e-aukcií</label>
             <input class="form-control" type="text" placeholder="Prevádzkovateľ e-aukcií" id="prevadzkovatel-e-aukcii"
-                   name="prevadzkovatel" value="<?= $data->getPrevadzkovatel() ?>">
+                   name="prevadzkovatel" value="<?= $data->getPrevadzkovatel() ?>" <?= $editable ?>>
         </div>
         <div class="form-group">
             <label for="predmet-obstravania">Predmet obstrávania</label>
             <input class="form-control" type="text" placeholder="Predmet obstrávania" id="predmet-obstravania"
-                   name="predmet" value="<?= $data->getPredmet() ?>">
+                   name="predmet" value="<?= $data->getPredmet() ?>" <?= $editable ?>>
         </div>
     </div>
     <div class="col-md-6">
         <div class="form-group">
             <label for="termin-dorucenia-podkladov">Termín doručenia podkladov</label>
             <input class="form-control" type="date" id="termin-dorucenia-podkladov" name="temrinDorucenia"
-                   value="<?= $data->getTerminDorucenia() ?>">
+                   value="<?= $data->getTerminDorucenia() ?>" <?= $editable ?>>
         </div>
         <div class="form-group">
             <label for="termin-odovzdaniea-cenovej-ponuky">Termín odovzdania cenovej ponuky</label>
             <input class="form-control" type="date" id="termin-odovzdaniea-cenovej-ponuky"
-                   name="terminOdovzdania" value="<?= $data->getTerminOdovzdania() ?>">
+                   name="terminOdovzdania" value="<?= $data->getTerminOdovzdania() ?>" <?= $editable ?>>
         </div>
         <div class="form-group">
             <label for="termin-e-aukcie">Termín e-aukcie</label>
             <input class="form-control" type="date" id="termin-e-aukcie" name="terminAukcie"
-                   value="<?= $data->getTerminAukcie() ?>">
+                   value="<?= $data->getTerminAukcie() ?>" <?= $editable ?>>
         </div>
     </div>
     <div class="col-md-12">
         <label for="pozadovane-podklady">Požadované podklady</label>
         <textarea class="form-control" rows="5" id="pozadovane-podklady"
-                  name="pozadovanePodklady"><?= $data->getPozadovanePodklady() ?></textarea>
+                  name="pozadovanePodklady" <?= $editable ?>><?= $data->getPozadovanePodklady() ?></textarea>
     </div>
     <div class="col-md-12">
         <label for="kriteria-priebeh-aukcie">Kritériá, priebeh aukcie</label>
         <textarea class="form-control" rows="5" id="kriteria-priebeh-aukcie"
-                  name="kriteria"><?= $data->getPredmet() ?></textarea>
+                  name="kriteria" <?= $editable ?>><?= $data->getKriteria() ?></textarea>
     </div>
     <hr class="col-md-12" size="5">
     <div class="col-md-4">
         <div class="form-group">
             <label for="meno-uchadzaca">Meno uchádzača</label>
-            <input class="form-control" type="text" placeholder="Meno uchádzača" id="meno-uchadzaca">
+            <input class="form-control" type="text" id="meno-uchadzaca"
+                   name="company_name">
         </div>
         <div class="form-group">
             <label for="kontaktna-osoba">Kontaktná osoba</label>
-            <input class="form-control" type="text" placeholder="Kontaktná osoba" id="kontaktna-osoba">
+            <input class="form-control" type="text" id="kontaktna-osoba"
+                   name="contact_person">
         </div>
         <div class="form-group">
             <label for="kontakt-tel-c">Kontaktné tel. č.</label>
-            <input class="form-control" type="tel" id="kontakt-tel-c">
+            <input class="form-control" type="tel" id="kontakt-tel-c" name="telephone">
+        </div>
+        <div class="form-group">
+            <label for="email">E-mail:</label>
+            <input class="form-control" type="text" id="email" name="email">
+        </div>
+        <div class="form-group">
+            <label for="ico">IČO:</label>
+            <input class="form-control" type="number" id="ico" name="ico">
+        </div>
+        <div class="form-group">
+            <label for="dic">DIČ:</label>
+            <input class="form-control" type="number" id="dic" name="dic">
+        </div>
+        <div class="form-group">
+            <label for="address">Adresa:</label>
+            <input class="form-control" type="text" id="address" name="address">
         </div>
     </div>
     <div class="col-md-8">
         <div class="form-group">
-
             <label>Select Files</label>
             <input type="file" multiple="multiple" id="multipleFile">
             <span id="clear" class="btn btn-warning btn-xs">

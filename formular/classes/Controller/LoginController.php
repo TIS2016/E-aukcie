@@ -29,7 +29,9 @@ class LoginController extends AbstractController
             } else {
                 $_SESSION['logged'] = true;
                 $_SESSION['admin'] = ($data['fk_role'] == 'ADMIN') ? true : false;
-                header('Location:/form');
+                $tmp = isset($_SESSION['auctionID']) ? "/" . $_SESSION['auctionID'] : "";
+                unset($_SESSION['auctionID']);
+                header('Location:/form'.$tmp);
                 exit(0);
             }
         }
