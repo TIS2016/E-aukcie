@@ -22,6 +22,7 @@ public class PdfCreator extends Constants {
         document = new Document();
         PdfWriter.getInstance(document, new FileOutputStream(file));
         open();
+
     }
 
     public void open(){
@@ -32,9 +33,10 @@ public class PdfCreator extends Constants {
         document.close();
     }
 
-    public void paragraph(String content, Font font, int align) throws DocumentException {
+    public void paragraph(String content, Font font2, int align) throws DocumentException {
         //Font f = FontFactory.getFont(FontFactory.COURIER, "Cp1250", BaseFont.EMBEDDED);
-        Paragraph p = new Paragraph((content), font);
+
+        Paragraph p = new Paragraph((content), font2);
         p.setAlignment(align);
         document.add(p);
 
@@ -42,9 +44,9 @@ public class PdfCreator extends Constants {
 
     public void addTitle(String nazov)
             throws DocumentException {
-
-        paragraph("Vyhodnotenie súťažných ponúk pre stavbu ", TITLE_FONT, ALIGN_CENTER);
-        paragraph(nazov, TITLE_FONT, ALIGN_CENTER);
+        Font font = FontFactory.getFont(FONT, "Cp1250",  BaseFont.EMBEDDED,11,BaseFont.ASCENT);
+        paragraph("Vyhodnotenie súťažných ponúk pre stavbu ", font, ALIGN_CENTER);
+        paragraph(nazov, font, ALIGN_CENTER);
 
     }
 
@@ -58,7 +60,7 @@ public class PdfCreator extends Constants {
         document.newPage();
     }
 
-    public void createTable(String[] colNames, ArrayList<ArrayList<String>> colContent)
+    public void createTable(String[] colNames, Font font, ArrayList<ArrayList<String>> colContent)
             throws DocumentException {
 
 
@@ -70,7 +72,7 @@ public class PdfCreator extends Constants {
         // t.setBorderWidth(1);
 
         for (String colName:colNames) {
-            PdfPCell c1 = new PdfPCell(new Phrase(colName));
+            PdfPCell c1 = new PdfPCell(new Phrase(colName,font));
             c1.setHorizontalAlignment(ALIGN_CENTER);
             c1.setBackgroundColor(BaseColor.GRAY);
             c1.setPadding(4);
@@ -80,7 +82,9 @@ public class PdfCreator extends Constants {
         table.setHeaderRows(1);
         for (ArrayList<String> row: colContent) {
             for (String cell:row) {
-                table.addCell(cell);
+                PdfPCell pcell = new PdfPCell(new Phrase(cell, SMALL_FONT));
+                pcell.setHorizontalAlignment(ALIGN_CENTER);
+                table.addCell(pcell);
             }
         }
 

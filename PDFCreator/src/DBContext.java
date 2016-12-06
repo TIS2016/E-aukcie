@@ -74,5 +74,12 @@ class DBContext {
         return r;
     }
 
+    public static ResultSet getCurrency(String id) throws SQLException{
+        PreparedStatement s;
+        s = DBContext.getConnection().prepareStatement("select c.description as curr from auction as a join c_currency as c on a.fk_currency=c.id where a.id='"+ id + "'");
+        ResultSet r = s.executeQuery();
+        return r;
+    }
+
 
 }

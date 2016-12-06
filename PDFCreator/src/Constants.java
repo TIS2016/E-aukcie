@@ -7,6 +7,9 @@ abstract class Constants {
     Font TITLE_FONT = new Font(Font.FontFamily.TIMES_ROMAN, 11, Font.BOLD);
     Font NORMAL_FONT = new Font(Font.FontFamily.TIMES_ROMAN, 10, Font.NORMAL);
     Font SMALL_BOLD = new Font(Font.FontFamily.TIMES_ROMAN, 10, Font.BOLD);
+    Font SMALL_FONT = new Font(Font.FontFamily.TIMES_ROMAN, 10, Font.NORMAL);
+    public static final String FONT = "./src/resources/FreeSans.ttf";
+
 
     //Font redFont = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.NORMAL, BaseColor.RED);
 
@@ -16,8 +19,8 @@ abstract class Constants {
 
     /*** Constanst for "Vystupny protokol" ***/
 
-    public static final String OUTPUT = "hello3.pdf";
-    public static final String[] colNames = new String[]{"Poradie", "Alias/Prihl. meno", "Firma", "Cena\n[EUR]", "Záruka\n[mes.]"};
+
+
 
 
 }

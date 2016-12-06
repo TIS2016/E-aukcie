@@ -26,8 +26,8 @@
       <file leaf-file-name="Test.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Test.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="14" column="5" selection-start-line="14" selection-start-column="5" selection-end-line="14" selection-end-column="5" />
+            <state relative-caret-position="153">
+              <caret line="12" column="8" selection-start-line="12" selection-start-column="8" selection-end-line="12" selection-end-column="8" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -35,14 +35,12 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Report.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Report.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Report.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="189">
-              <caret line="38" column="48" selection-start-line="38" selection-start-column="48" selection-end-line="38" selection-end-column="48" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state relative-caret-position="4114">
+              <caret line="254" column="44" selection-start-line="254" selection-start-column="44" selection-end-line="254" selection-end-column="44" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -52,10 +50,7 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="510">
               <caret line="30" column="115" selection-start-line="30" selection-start-column="115" selection-end-line="30" selection-end-column="115" />
-              <folding>
-                <element signature="e#936#937#0" expanded="true" />
-                <element signature="e#981#982#0" expanded="true" />
-              </folding>
+              <folding />
             </state>
           </provider>
         </entry>
@@ -63,13 +58,9 @@
       <file leaf-file-name="Jackson2Example.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Jackson2Example.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="355">
+            <state relative-caret-position="1156">
               <caret line="76" column="28" selection-start-line="76" selection-start-column="28" selection-end-line="76" selection-end-column="28" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#2712#2713#0" expanded="true" />
-                <element signature="e#2733#2734#0" expanded="true" />
-              </folding>
+              <folding />
             </state>
           </provider>
         </entry>
@@ -87,18 +78,18 @@
       <file leaf-file-name="Constants.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Constants.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="19" column="97" selection-start-line="19" selection-start-column="97" selection-end-line="19" selection-end-column="97" />
+            <state relative-caret-position="102">
+              <caret line="9" column="75" selection-start-line="9" selection-start-column="75" selection-end-line="9" selection-end-column="75" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PdfCreator.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="PdfCreator.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/PdfCreator.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="209">
-              <caret line="46" column="23" selection-start-line="46" selection-start-column="23" selection-end-line="46" selection-end-column="23" />
+            <state relative-caret-position="413">
+              <caret line="85" column="57" selection-start-line="85" selection-start-column="57" selection-end-line="85" selection-end-column="57" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -109,19 +100,21 @@
       <file leaf-file-name="DBContext.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/DBContext.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="539">
-              <caret line="75" column="0" selection-start-line="75" selection-start-column="0" selection-end-line="75" selection-end-column="0" />
+            <state relative-caret-position="1241">
+              <caret line="78" column="84" selection-start-line="78" selection-start-column="84" selection-end-line="78" selection-end-column="84" />
               <folding>
-                <marker date="1480360274675" expanded="true" signature="1061:1199" placeholder="select disti... " />
-                <marker date="1480360274675" expanded="true" signature="1282:1421" placeholder="select disti... " />
-                <marker date="1480360274675" expanded="true" signature="1650:1751" placeholder="select numer... auction_user_criterion" />
-                <marker date="1480360274675" expanded="true" signature="1976:2033" placeholder="select numer... auction_user_criterion" />
-                <marker date="1480360274675" expanded="true" signature="1976:2049" placeholder="Select login... users" />
-                <marker date="1480360274675" expanded="true" signature="1976:2061" placeholder="Select login... users" />
-                <marker date="1480360274675" expanded="true" signature="2290:2325" placeholder="select name auction" />
-                <marker date="1480360274675" expanded="true" signature="2290:2335" placeholder="select name auction" />
-                <marker date="1480360274675" expanded="true" signature="2566:2653" placeholder="select * fro... client" />
-                <marker date="1480360274675" expanded="true" signature="2641:2653" placeholder="select name auction" />
+                <marker date="1480546088551" expanded="true" signature="1061:1199" placeholder="select disti... " />
+                <marker date="1480546088551" expanded="true" signature="1282:1421" placeholder="select disti... " />
+                <marker date="1480546088551" expanded="true" signature="1650:1751" placeholder="select numer... auction_user_criterion" />
+                <marker date="1480546088551" expanded="true" signature="1976:2033" placeholder="select numer... auction_user_criterion" />
+                <marker date="1480546088551" expanded="true" signature="1976:2049" placeholder="Select login... users" />
+                <marker date="1480546088551" expanded="true" signature="1976:2061" placeholder="Select login... users" />
+                <marker date="1480546088551" expanded="true" signature="2290:2325" placeholder="select name auction" />
+                <marker date="1480546088551" expanded="true" signature="2290:2335" placeholder="select name auction" />
+                <marker date="1480546088551" expanded="true" signature="2566:2653" placeholder="select * fro... client" />
+                <marker date="1480546088551" expanded="true" signature="2641:2653" placeholder="select name auction" />
+                <marker date="1480546088551" expanded="true" signature="2879:2991" placeholder="select c.des... auction" />
+                <marker date="1480546088551" expanded="true" signature="2880:2991" placeholder="select * fro... client" />
               </folding>
             </state>
           </provider>
@@ -148,12 +141,12 @@
         <option value="$PROJECT_DIR$/src/Auction_old.java" />
         <option value="$PROJECT_DIR$/src/Auction.java" />
         <option value="$PROJECT_DIR$/src/Jackson2Example.java" />
-        <option value="$PROJECT_DIR$/src/Constants.java" />
         <option value="$PROJECT_DIR$/src/Row.java" />
-        <option value="$PROJECT_DIR$/src/PdfCreator.java" />
         <option value="$PROJECT_DIR$/src/DBContext.java" />
-        <option value="$PROJECT_DIR$/src/Test.java" />
         <option value="$PROJECT_DIR$/src/Report.java" />
+        <option value="$PROJECT_DIR$/src/Test.java" />
+        <option value="$PROJECT_DIR$/src/Constants.java" />
+        <option value="$PROJECT_DIR$/src/PdfCreator.java" />
       </list>
     </option>
   </component>
@@ -193,8 +186,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
       <pane id="Scope" />
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -243,7 +236,7 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -667,11 +660,16 @@
       <workItem from="1480153354149" duration="5094000" />
       <workItem from="1480188667565" duration="3844000" />
       <workItem from="1480339823261" duration="21241000" />
+      <workItem from="1480541781904" duration="4588000" />
+      <workItem from="1480612539144" duration="2578000" />
+      <workItem from="1480757084429" duration="607000" />
+      <workItem from="1480761307709" duration="605000" />
+      <workItem from="1480977256335" duration="599000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="54638000" />
+    <option name="totallyTimeSpent" value="63615000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1696" height="1026" extended-state="6" />
@@ -679,12 +677,10 @@
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3293348" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31952018" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -694,13 +690,15 @@
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3293348" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31952018" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3293348" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -746,16 +744,18 @@
         <state relative-caret-position="561">
           <caret line="38" column="83" selection-start-line="38" selection-start-column="54" selection-end-line="38" selection-end-column="83" />
           <folding>
-            <marker date="1480360274675" expanded="true" signature="1061:1199" placeholder="select disti... " />
-            <marker date="1480360274675" expanded="true" signature="1282:1421" placeholder="select disti... " />
-            <marker date="1480360274675" expanded="true" signature="1650:1751" placeholder="select numer... auction_user_criterion" />
-            <marker date="1480360274675" expanded="true" signature="1976:2033" placeholder="select numer... auction_user_criterion" />
-            <marker date="1480360274675" expanded="true" signature="1976:2049" placeholder="Select login... users" />
-            <marker date="1480360274675" expanded="true" signature="1976:2061" placeholder="Select login... users" />
-            <marker date="1480360274675" expanded="true" signature="2290:2325" placeholder="select name auction" />
-            <marker date="1480360274675" expanded="true" signature="2290:2335" placeholder="select name auction" />
-            <marker date="1480360274675" expanded="true" signature="2566:2653" placeholder="select * fro... client" />
-            <marker date="1480360274675" expanded="true" signature="2641:2653" placeholder="select name auction" />
+            <marker date="1480546088551" expanded="true" signature="1061:1199" placeholder="select disti... " />
+            <marker date="1480546088551" expanded="true" signature="1282:1421" placeholder="select disti... " />
+            <marker date="1480546088551" expanded="true" signature="1650:1751" placeholder="select numer... auction_user_criterion" />
+            <marker date="1480546088551" expanded="true" signature="1976:2033" placeholder="select numer... auction_user_criterion" />
+            <marker date="1480546088551" expanded="true" signature="1976:2049" placeholder="Select login... users" />
+            <marker date="1480546088551" expanded="true" signature="1976:2061" placeholder="Select login... users" />
+            <marker date="1480546088551" expanded="true" signature="2290:2325" placeholder="select name auction" />
+            <marker date="1480546088551" expanded="true" signature="2290:2335" placeholder="select name auction" />
+            <marker date="1480546088551" expanded="true" signature="2566:2653" placeholder="select * fro... client" />
+            <marker date="1480546088551" expanded="true" signature="2641:2653" placeholder="select name auction" />
+            <marker date="1480546088551" expanded="true" signature="2879:2991" placeholder="select c.des... auction" />
+            <marker date="1480546088551" expanded="true" signature="2880:2991" placeholder="select * fro... client" />
           </folding>
         </state>
       </provider>
@@ -793,16 +793,18 @@
         <state relative-caret-position="323">
           <caret line="24" column="12" selection-start-line="24" selection-start-column="12" selection-end-line="24" selection-end-column="12" />
           <folding>
-            <marker date="1480360274675" expanded="true" signature="1061:1199" placeholder="select disti... " />
-            <marker date="1480360274675" expanded="true" signature="1282:1421" placeholder="select disti... " />
-            <marker date="1480360274675" expanded="true" signature="1650:1751" placeholder="select numer... auction_user_criterion" />
-            <marker date="1480360274675" expanded="true" signature="1976:2033" placeholder="select numer... auction_user_criterion" />
-            <marker date="1480360274675" expanded="true" signature="1976:2049" placeholder="Select login... users" />
-            <marker date="1480360274675" expanded="true" signature="1976:2061" placeholder="Select login... users" />
-            <marker date="1480360274675" expanded="true" signature="2290:2325" placeholder="select name auction" />
-            <marker date="1480360274675" expanded="true" signature="2290:2335" placeholder="select name auction" />
-            <marker date="1480360274675" expanded="true" signature="2566:2653" placeholder="select * fro... client" />
-            <marker date="1480360274675" expanded="true" signature="2641:2653" placeholder="select name auction" />
+            <marker date="1480546088551" expanded="true" signature="1061:1199" placeholder="select disti... " />
+            <marker date="1480546088551" expanded="true" signature="1282:1421" placeholder="select disti... " />
+            <marker date="1480546088551" expanded="true" signature="1650:1751" placeholder="select numer... auction_user_criterion" />
+            <marker date="1480546088551" expanded="true" signature="1976:2033" placeholder="select numer... auction_user_criterion" />
+            <marker date="1480546088551" expanded="true" signature="1976:2049" placeholder="Select login... users" />
+            <marker date="1480546088551" expanded="true" signature="1976:2061" placeholder="Select login... users" />
+            <marker date="1480546088551" expanded="true" signature="2290:2325" placeholder="select name auction" />
+            <marker date="1480546088551" expanded="true" signature="2290:2335" placeholder="select name auction" />
+            <marker date="1480546088551" expanded="true" signature="2566:2653" placeholder="select * fro... client" />
+            <marker date="1480546088551" expanded="true" signature="2641:2653" placeholder="select name auction" />
+            <marker date="1480546088551" expanded="true" signature="2879:2991" placeholder="select c.des... auction" />
+            <marker date="1480546088551" expanded="true" signature="2880:2991" placeholder="select * fro... client" />
           </folding>
         </state>
       </provider>
@@ -840,16 +842,18 @@
         <state relative-caret-position="323">
           <caret line="24" column="12" selection-start-line="24" selection-start-column="12" selection-end-line="24" selection-end-column="12" />
           <folding>
-            <marker date="1480360274675" expanded="true" signature="1061:1199" placeholder="select disti... " />
-            <marker date="1480360274675" expanded="true" signature="1282:1421" placeholder="select disti... " />
-            <marker date="1480360274675" expanded="true" signature="1650:1751" placeholder="select numer... auction_user_criterion" />
-            <marker date="1480360274675" expanded="true" signature="1976:2033" placeholder="select numer... auction_user_criterion" />
-            <marker date="1480360274675" expanded="true" signature="1976:2049" placeholder="Select login... users" />
-            <marker date="1480360274675" expanded="true" signature="1976:2061" placeholder="Select login... users" />
-            <marker date="1480360274675" expanded="true" signature="2290:2325" placeholder="select name auction" />
-            <marker date="1480360274675" expanded="true" signature="2290:2335" placeholder="select name auction" />
-            <marker date="1480360274675" expanded="true" signature="2566:2653" placeholder="select * fro... client" />
-            <marker date="1480360274675" expanded="true" signature="2641:2653" placeholder="select name auction" />
+            <marker date="1480546088551" expanded="true" signature="1061:1199" placeholder="select disti... " />
+            <marker date="1480546088551" expanded="true" signature="1282:1421" placeholder="select disti... " />
+            <marker date="1480546088551" expanded="true" signature="1650:1751" placeholder="select numer... auction_user_criterion" />
+            <marker date="1480546088551" expanded="true" signature="1976:2033" placeholder="select numer... auction_user_criterion" />
+            <marker date="1480546088551" expanded="true" signature="1976:2049" placeholder="Select login... users" />
+            <marker date="1480546088551" expanded="true" signature="1976:2061" placeholder="Select login... users" />
+            <marker date="1480546088551" expanded="true" signature="2290:2325" placeholder="select name auction" />
+            <marker date="1480546088551" expanded="true" signature="2290:2335" placeholder="select name auction" />
+            <marker date="1480546088551" expanded="true" signature="2566:2653" placeholder="select * fro... client" />
+            <marker date="1480546088551" expanded="true" signature="2641:2653" placeholder="select name auction" />
+            <marker date="1480546088551" expanded="true" signature="2879:2991" placeholder="select c.des... auction" />
+            <marker date="1480546088551" expanded="true" signature="2880:2991" placeholder="select * fro... client" />
           </folding>
         </state>
       </provider>
@@ -887,16 +891,18 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <marker date="1480360274675" expanded="true" signature="1061:1199" placeholder="select disti... " />
-            <marker date="1480360274675" expanded="true" signature="1282:1421" placeholder="select disti... " />
-            <marker date="1480360274675" expanded="true" signature="1650:1751" placeholder="select numer... auction_user_criterion" />
-            <marker date="1480360274675" expanded="true" signature="1976:2033" placeholder="select numer... auction_user_criterion" />
-            <marker date="1480360274675" expanded="true" signature="1976:2049" placeholder="Select login... users" />
-            <marker date="1480360274675" expanded="true" signature="1976:2061" placeholder="Select login... users" />
-            <marker date="1480360274675" expanded="true" signature="2290:2325" placeholder="select name auction" />
-            <marker date="1480360274675" expanded="true" signature="2290:2335" placeholder="select name auction" />
-            <marker date="1480360274675" expanded="true" signature="2566:2653" placeholder="select * fro... client" />
-            <marker date="1480360274675" expanded="true" signature="2641:2653" placeholder="select name auction" />
+            <marker date="1480546088551" expanded="true" signature="1061:1199" placeholder="select disti... " />
+            <marker date="1480546088551" expanded="true" signature="1282:1421" placeholder="select disti... " />
+            <marker date="1480546088551" expanded="true" signature="1650:1751" placeholder="select numer... auction_user_criterion" />
+            <marker date="1480546088551" expanded="true" signature="1976:2033" placeholder="select numer... auction_user_criterion" />
+            <marker date="1480546088551" expanded="true" signature="1976:2049" placeholder="Select login... users" />
+            <marker date="1480546088551" expanded="true" signature="1976:2061" placeholder="Select login... users" />
+            <marker date="1480546088551" expanded="true" signature="2290:2325" placeholder="select name auction" />
+            <marker date="1480546088551" expanded="true" signature="2290:2335" placeholder="select name auction" />
+            <marker date="1480546088551" expanded="true" signature="2566:2653" placeholder="select * fro... client" />
+            <marker date="1480546088551" expanded="true" signature="2641:2653" placeholder="select name auction" />
+            <marker date="1480546088551" expanded="true" signature="2879:2991" placeholder="select c.des... auction" />
+            <marker date="1480546088551" expanded="true" signature="2880:2991" placeholder="select * fro... client" />
           </folding>
         </state>
       </provider>
@@ -934,16 +940,18 @@
         <state relative-caret-position="204">
           <caret line="17" column="30" selection-start-line="17" selection-start-column="22" selection-end-line="17" selection-end-column="30" />
           <folding>
-            <marker date="1480360274675" expanded="true" signature="1061:1199" placeholder="select disti... " />
-            <marker date="1480360274675" expanded="true" signature="1282:1421" placeholder="select disti... " />
-            <marker date="1480360274675" expanded="true" signature="1650:1751" placeholder="select numer... auction_user_criterion" />
-            <marker date="1480360274675" expanded="true" signature="1976:2033" placeholder="select numer... auction_user_criterion" />
-            <marker date="1480360274675" expanded="true" signature="1976:2049" placeholder="Select login... users" />
-            <marker date="1480360274675" expanded="true" signature="1976:2061" placeholder="Select login... users" />
-            <marker date="1480360274675" expanded="true" signature="2290:2325" placeholder="select name auction" />
-            <marker date="1480360274675" expanded="true" signature="2290:2335" placeholder="select name auction" />
-            <marker date="1480360274675" expanded="true" signature="2566:2653" placeholder="select * fro... client" />
-            <marker date="1480360274675" expanded="true" signature="2641:2653" placeholder="select name auction" />
+            <marker date="1480546088551" expanded="true" signature="1061:1199" placeholder="select disti... " />
+            <marker date="1480546088551" expanded="true" signature="1282:1421" placeholder="select disti... " />
+            <marker date="1480546088551" expanded="true" signature="1650:1751" placeholder="select numer... auction_user_criterion" />
+            <marker date="1480546088551" expanded="true" signature="1976:2033" placeholder="select numer... auction_user_criterion" />
+            <marker date="1480546088551" expanded="true" signature="1976:2049" placeholder="Select login... users" />
+            <marker date="1480546088551" expanded="true" signature="1976:2061" placeholder="Select login... users" />
+            <marker date="1480546088551" expanded="true" signature="2290:2325" placeholder="select name auction" />
+            <marker date="1480546088551" expanded="true" signature="2290:2335" placeholder="select name auction" />
+            <marker date="1480546088551" expanded="true" signature="2566:2653" placeholder="select * fro... client" />
+            <marker date="1480546088551" expanded="true" signature="2641:2653" placeholder="select name auction" />
+            <marker date="1480546088551" expanded="true" signature="2879:2991" placeholder="select c.des... auction" />
+            <marker date="1480546088551" expanded="true" signature="2880:2991" placeholder="select * fro... client" />
           </folding>
         </state>
       </provider>
@@ -981,16 +989,18 @@
         <state relative-caret-position="272">
           <caret line="21" column="64" selection-start-line="21" selection-start-column="64" selection-end-line="21" selection-end-column="64" />
           <folding>
-            <marker date="1480360274675" expanded="true" signature="1061:1199" placeholder="select disti... " />
-            <marker date="1480360274675" expanded="true" signature="1282:1421" placeholder="select disti... " />
-            <marker date="1480360274675" expanded="true" signature="1650:1751" placeholder="select numer... auction_user_criterion" />
-            <marker date="1480360274675" expanded="true" signature="1976:2033" placeholder="select numer... auction_user_criterion" />
-            <marker date="1480360274675" expanded="true" signature="1976:2049" placeholder="Select login... users" />
-            <marker date="1480360274675" expanded="true" signature="1976:2061" placeholder="Select login... users" />
-            <marker date="1480360274675" expanded="true" signature="2290:2325" placeholder="select name auction" />
-            <marker date="1480360274675" expanded="true" signature="2290:2335" placeholder="select name auction" />
-            <marker date="1480360274675" expanded="true" signature="2566:2653" placeholder="select * fro... client" />
-            <marker date="1480360274675" expanded="true" signature="2641:2653" placeholder="select name auction" />
+            <marker date="1480546088551" expanded="true" signature="1061:1199" placeholder="select disti... " />
+            <marker date="1480546088551" expanded="true" signature="1282:1421" placeholder="select disti... " />
+            <marker date="1480546088551" expanded="true" signature="1650:1751" placeholder="select numer... auction_user_criterion" />
+            <marker date="1480546088551" expanded="true" signature="1976:2033" placeholder="select numer... auction_user_criterion" />
+            <marker date="1480546088551" expanded="true" signature="1976:2049" placeholder="Select login... users" />
+            <marker date="1480546088551" expanded="true" signature="1976:2061" placeholder="Select login... users" />
+            <marker date="1480546088551" expanded="true" signature="2290:2325" placeholder="select name auction" />
+            <marker date="1480546088551" expanded="true" signature="2290:2335" placeholder="select name auction" />
+            <marker date="1480546088551" expanded="true" signature="2566:2653" placeholder="select * fro... client" />
+            <marker date="1480546088551" expanded="true" signature="2641:2653" placeholder="select name auction" />
+            <marker date="1480546088551" expanded="true" signature="2879:2991" placeholder="select c.des... auction" />
+            <marker date="1480546088551" expanded="true" signature="2880:2991" placeholder="select * fro... client" />
           </folding>
         </state>
       </provider>
@@ -1177,7 +1187,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="723">
           <caret line="150" column="0" selection-start-line="150" selection-start-column="0" selection-end-line="150" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1189,23 +1198,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Constants.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="19" column="97" selection-start-line="19" selection-start-column="97" selection-end-line="19" selection-end-column="97" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Jackson2Example.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="355">
+        <state relative-caret-position="1156">
           <caret line="76" column="28" selection-start-line="76" selection-start-column="28" selection-end-line="76" selection-end-column="28" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#2712#2713#0" expanded="true" />
-            <element signature="e#2733#2734#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1213,46 +1210,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="510">
           <caret line="30" column="115" selection-start-line="30" selection-start-column="115" selection-end-line="30" selection-end-column="115" />
-          <folding>
-            <element signature="e#936#937#0" expanded="true" />
-            <element signature="e#981#982#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/PdfCreator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="209">
-          <caret line="46" column="23" selection-start-line="46" selection-start-column="23" selection-end-line="46" selection-end-column="23" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/DBContext.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="539">
-          <caret line="75" column="0" selection-start-line="75" selection-start-column="0" selection-end-line="75" selection-end-column="0" />
-          <folding>
-            <marker date="1480360274675" expanded="true" signature="1061:1199" placeholder="select disti... " />
-            <marker date="1480360274675" expanded="true" signature="1282:1421" placeholder="select disti... " />
-            <marker date="1480360274675" expanded="true" signature="1650:1751" placeholder="select numer... auction_user_criterion" />
-            <marker date="1480360274675" expanded="true" signature="1976:2033" placeholder="select numer... auction_user_criterion" />
-            <marker date="1480360274675" expanded="true" signature="1976:2049" placeholder="Select login... users" />
-            <marker date="1480360274675" expanded="true" signature="1976:2061" placeholder="Select login... users" />
-            <marker date="1480360274675" expanded="true" signature="2290:2325" placeholder="select name auction" />
-            <marker date="1480360274675" expanded="true" signature="2290:2335" placeholder="select name auction" />
-            <marker date="1480360274675" expanded="true" signature="2566:2653" placeholder="select * fro... client" />
-            <marker date="1480360274675" expanded="true" signature="2641:2653" placeholder="select name auction" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Test.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="14" column="5" selection-start-line="14" selection-start-column="5" selection-end-line="14" selection-end-column="5" />
+        <state relative-caret-position="153">
+          <caret line="12" column="8" selection-start-line="12" selection-start-column="8" selection-end-line="12" selection-end-column="8" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1261,8 +1226,45 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Report.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
-          <caret line="38" column="48" selection-start-line="38" selection-start-column="48" selection-end-line="38" selection-end-column="48" />
+        <state relative-caret-position="4114">
+          <caret line="254" column="44" selection-start-line="254" selection-start-column="44" selection-end-line="254" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/DBContext.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1241">
+          <caret line="78" column="84" selection-start-line="78" selection-start-column="84" selection-end-line="78" selection-end-column="84" />
+          <folding>
+            <marker date="1480546088551" expanded="true" signature="1061:1199" placeholder="select disti... " />
+            <marker date="1480546088551" expanded="true" signature="1282:1421" placeholder="select disti... " />
+            <marker date="1480546088551" expanded="true" signature="1650:1751" placeholder="select numer... auction_user_criterion" />
+            <marker date="1480546088551" expanded="true" signature="1976:2033" placeholder="select numer... auction_user_criterion" />
+            <marker date="1480546088551" expanded="true" signature="1976:2049" placeholder="Select login... users" />
+            <marker date="1480546088551" expanded="true" signature="1976:2061" placeholder="Select login... users" />
+            <marker date="1480546088551" expanded="true" signature="2290:2325" placeholder="select name auction" />
+            <marker date="1480546088551" expanded="true" signature="2290:2335" placeholder="select name auction" />
+            <marker date="1480546088551" expanded="true" signature="2566:2653" placeholder="select * fro... client" />
+            <marker date="1480546088551" expanded="true" signature="2641:2653" placeholder="select name auction" />
+            <marker date="1480546088551" expanded="true" signature="2879:2991" placeholder="select c.des... auction" />
+            <marker date="1480546088551" expanded="true" signature="2880:2991" placeholder="select * fro... client" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Constants.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="9" column="75" selection-start-line="9" selection-start-column="75" selection-end-line="9" selection-end-column="75" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/PdfCreator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="413">
+          <caret line="85" column="57" selection-start-line="85" selection-start-column="57" selection-end-line="85" selection-end-column="57" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

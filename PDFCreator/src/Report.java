@@ -1,4 +1,7 @@
 import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.pdf.BaseFont;
 
 import java.io.IOException;
 import java.sql.Date;
@@ -14,13 +17,20 @@ public class Report extends Constants{
     static DBContext connect;
     private ArrayList<Row> rowsStart;
     private ArrayList<Row> rowsEnd;
-    private String auctionName, aCompany,aOwner;
+    private String auctionName, aCompany,aOwner, currency;
     private Date date,from, to;
+    private String[] colNames;
+    private Double ciastka;
+
+    Font TITLE_FONT = FontFactory.getFont(FONT, "Cp1250",  BaseFont.EMBEDDED,11,BaseFont.ASCENT);
+    Font NORMAL_FONT = FontFactory.getFont(FONT, "Cp1250",  BaseFont.EMBEDDED,10);
+    Font SMALL_BOLD = FontFactory.getFont(FONT, "Cp1250",  BaseFont.EMBEDDED,10,BaseFont.ASCENT);
 
     public Report(String auctionID) {
         rowsStart = new ArrayList<>();
         rowsEnd = new ArrayList<>();
         connect = new DBContext();
+        this.ciastka = null;
         try {
             connect.init("postgres", "tistis");
 
@@ -28,6 +38,7 @@ public class Report extends Constants{
             getData("end", auctionID);
             getName(auctionID);
             getProjectClient(auctionID);
+            getCurrency(auctionID);
 
             DBContext.close();
 
@@ -43,6 +54,35 @@ public class Report extends Constants{
             e.printStackTrace();
         }
 
+    }
+
+    public Report(String auctionID, Double ciastka){
+        rowsStart = new ArrayList<>();
+        rowsEnd = new ArrayList<>();
+        connect = new DBContext();
+        this.ciastka = ciastka;
+        try {
+            connect.init("postgres", "tistis");
+
+            getData("start", auctionID);
+            getData("end", auctionID);
+            getName(auctionID);
+            getProjectClient(auctionID);
+            getCurrency(auctionID);
+
+            DBContext.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            createPdf(auctionName + from + ".pdf");
+        } catch (DocumentException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void getData(String startEnd,String auctionID){
@@ -78,6 +118,21 @@ public class Report extends Constants{
             e.printStackTrace();
         }
 
+    }
+
+    private void getCurrency(String auctionID){
+        try {
+            ResultSet r = DBContext.getCurrency(auctionID);
+
+            while (r.next()){
+                currency =  r.getString("curr");
+                System.out.print(currency);
+
+            }
+            r.close();
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     private void getProjectClient(String auctionID){
@@ -155,6 +210,10 @@ public class Report extends Constants{
         SimpleDateFormat sdf2 = new SimpleDateFormat(
                 "hh:mm");
         PdfCreator pdfCreator = new PdfCreator(filename);
+        //PdfFont f1 = PdfFontFactory.createFont(FONT, "Cp1250", true);
+        Font font = FontFactory.getFont(FONT, "Cp1250", BaseFont.EMBEDDED);
+        colNames = new String[]{"Poradie", "Alias/Prihl. meno", "Firma", "Cena\n["+ currency + "]", "Záruka\n[mes.]"};
+
         ArrayList<ArrayList<String>> colContent = new ArrayList<>();
         for (int i = 0; i<2; i++){
             colContent.add(new ArrayList<>());
@@ -173,23 +232,29 @@ public class Report extends Constants{
 
         pdfCreator.paragraph(naKonci.get(0).get(2),SMALL_BOLD,ALIGN_CENTER);
         pdfCreator.addEmptyLine(1);
-        pdfCreator.paragraph("s cenou "+naKonci.get(0).get(3)+",- EUR bez DPH a zárukou "+naKonci.get(0).get(4)+" mesiacov.  ",NORMAL_FONT,ALIGN_LEFT);
+        pdfCreator.paragraph("s cenou "+naKonci.get(0).get(3)+",- "+ currency + " bez DPH a zárukou "+naKonci.get(0).get(4)+" mesiacov.  ",NORMAL_FONT,ALIGN_LEFT);
         pdfCreator.addEmptyLine(1);
         pdfCreator.paragraph("Ceny uvedené v nasledujúcich tabuľkách sú uvedené bez DPH. ", NORMAL_FONT, ALIGN_LEFT);
         pdfCreator.addEmptyLine(1);
         pdfCreator.paragraph("Vstupné ponuky uchádzačov:",NORMAL_FONT,ALIGN_LEFT);
         pdfCreator.addEmptyLine(1);
-        pdfCreator.createTable(colNames,getArrays(rowsStart));
+        pdfCreator.createTable(colNames,TITLE_FONT,getArrays(rowsStart));
         pdfCreator.addEmptyLine(1);
         pdfCreator.paragraph("Všetky ponuky uchádzačov splnili podmienky účasti na elektronickej aukcii.",NORMAL_FONT,ALIGN_LEFT);
         pdfCreator.paragraph("Výsledky elektronickej aukcie, ktorá sa konala " + sdf.format(from)+" v čase od " + sdf2.format(from)+ " do " + sdf2.format(to)+ ":",NORMAL_FONT,ALIGN_LEFT);
         pdfCreator.addEmptyLine(1);
 
-        pdfCreator.createTable(colNames,naKonci);
+        pdfCreator.createTable(colNames,TITLE_FONT,naKonci);
         pdfCreator.addEmptyLine(1);
-        pdfCreator.paragraph("Po započítaní  fixnej  čiastky 34 374,29 EUR bez DPH, " +
-                        "ktorá nebola predmetom elektronickej aukcie je výsledná cena víťaznej ponuky v sume 179 374,36 EUR bez DPH.",
-                NORMAL_FONT,ALIGN_LEFT);
+        if (ciastka==null){
+            pdfCreator.paragraph("Výsledná cena víťaznej ponuky je v sume "+naKonci.get(0).get(3)+" "+ currency + " bez DPH.",
+                    NORMAL_FONT,ALIGN_LEFT);
+        }else{
+            pdfCreator.paragraph("Po započítaní  fixnej  čiastky "+ciastka +" "+ currency + " bez DPH, " +
+                            "ktorá nebola predmetom elektronickej aukcie je výsledná cena víťaznej ponuky v sume "+(Math.round(Double.valueOf(naKonci.get(0).get(3))*100)/100 + ciastka)+" "+ currency + " bez DPH.",
+                    NORMAL_FONT,ALIGN_LEFT);
+        }
+
         pdfCreator.addEmptyLine(1);
         pdfCreator.paragraph("v Bratislave, " + sdf.format(to),NORMAL_FONT,ALIGN_RIGHT);
         pdfCreator.addEmptyLine(1);
