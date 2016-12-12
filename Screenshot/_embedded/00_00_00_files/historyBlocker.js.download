@@ -1,0 +1,31 @@
+
+
+function checkPath()
+{
+    //setTimeout("checkPathBody()", 1);
+}
+
+function checkPathBody()
+{
+    var enable = '${settingsBean.enableHistoryBlocker}';
+    if (enable == "true"){
+        check();
+    }
+    setTimeout("checkPathBody()", 500);
+}
+
+function check()
+{
+    var filenamefaces = location.pathname.substr(location.pathname.lastIndexOf("/")+1,location.pathname.length);
+    var filename = filenamefaces.substr(0,filenamefaces.lastIndexOf("."))+".xhtml";
+    var server = location.pathname.substr(0,location.pathname.lastIndexOf("/")+1);
+    var current = '${historyBean.currentLocation.loc}';
+    if (filename != current){
+        alert("Na aktuálnu obrazovku ste sa nedostali pomocou navigacného menu vo vnútri aplikácie. Takáto navigácia može viesť k " +
+            "nekonzistencii dát. Z bezpečnostných dôvodov budete presmerovaný na úvodnú obrazovku.")
+        window.location=server+"index.xhtml";
+    }
+}
+
+
+

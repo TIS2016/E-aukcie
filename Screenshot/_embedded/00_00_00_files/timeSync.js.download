@@ -1,0 +1,254 @@
+var jsonrpc = new JSONRpcClient("/prosale/provider");
+var showEndMsgPoll = 500;// kontrola, ci uz nieje nahodou cas blizko koncu - odchylka pri zobrazeni konca
+var showEndCheckDelta = 2000;// ak je uz cas do konca mensi ako toto ,zacne kontrolovat zo servrom, malo by platit : showEndCheckDelta >showEndMsgPoll + 2xping
+var hackSynchroDelta =  - 2000;// ak uz 2 sekundy je cas mensi ako nula a stale sa nezobrazil koniec kola, vyvola sa extra synchronizacia
+var updateTimerPoll = 100;// tento netaha data zo servra, iba refreshuje cas
+var syncTimePoll = 30000;// tento syncuje cas zo serverom
+var order =  - 1;
+var orderVisible = false;
+var pattern = "yyyy-MM-dd  HH:mm:ss";
+var pattern2 = "yy/MM/dd-HH:mm:ss";
+var syncDelay = 0;
+var beginningTime = -1;
+var endTime = -1;
+var isShownEnd = false;
+var endHasBeenShown = true;
+var serverDate = null;
+var formatedTime =  "-:-:-";
+var formatedBT = null;
+var formatedET = null;
+
+/* METODY NA UPDATOVANIE TIMEROV (AUKCNA SIEN, MENU, SIEN UZIVATELA) */
+
+// updatne cas v menu bare
+function updateTime() {
+
+    var currentTime = new Date();
+    var clientDate = currentTime.getTime();
+
+    var d = new Date(clientDate + syncDelay + 1000); //  + 1000 priratame sekundu aby server cas na liste matchoval s timerom
+    var t = d.formatDate(pattern);
+
+    if (document.getElementById('menuForm1:serverDate1') != null)
+        document.getElementById('menuForm1:serverDate1').innerHTML = t
+    if (document.getElementById('menuForm2:serverDate2') != null)
+        document.getElementById('menuForm2:serverDate2').innerHTML = t;
+
+    setTimeout("updateTime()", updateTimerPoll);
+}
+
+// spolocna metoda pre update timera pre usera aj admina
+function updateTimerBody() {
+    var currentTime = new Date();
+    var clientDate = currentTime.getTime();
+
+    d = endTime - (clientDate + syncDelay);
+    s = (clientDate + syncDelay) - beginningTime;
+
+        
+    formatedTime = "00:00:00";
+    if (d <= 0 || s <= 0) {
+        document.title = "ProSale";
+    } else {
+        t = d / 1000;
+        seconds = Math.floor(t % 60);
+        minutes = Math.floor((t % 3600) / 60);
+        hours = Math.floor(t / 3600);
+        if (seconds / 10 < 1) {
+            seconds = "0" + seconds;
+        }
+        if (minutes / 10 < 1) {
+            minutes = "0" + minutes;
+        }
+        if (hours / 10 < 1) {
+            hours = "0" + hours;
+        }
+        formatedTime = hours + ":" + minutes + ":" + seconds;
+    }
+
+    var bd = new Date(beginningTime);
+    formatedBT = bd.formatDate(pattern2);
+    var ed = new Date(endTime);
+    formatedET = ed.formatDate(pattern2);
+}
+
+// update adminovho timera v aukcnych cienach
+function updateAdminTimer() {
+    if (beginningTime == -1 || endTime== -1){
+        setTimeout("updateAdminTimer()", updateTimerPoll);
+        return;
+    }
+        
+    updateTimerBody();
+
+    document.title = formatedTime;
+
+    if (document.getElementById('auctionRuntimeForm') != null) {
+        if (document.getElementById('auctionRuntimeForm:auctionTimeRemaining') != null)
+            document.getElementById('auctionRuntimeForm:auctionTimeRemaining').innerHTML = formatedTime;
+        if (document.getElementById('auctionRuntimeForm:auctionTime') != null)
+            document.getElementById('auctionRuntimeForm:auctionTime').innerHTML = formatedBT + " - " + formatedET;
+    }
+
+    if (document.getElementById('auctionRuntime2Form') != null) {
+        if (document.getElementById('auctionRuntime2Form:auctionTimeRemaining') != null)
+            document.getElementById('auctionRuntime2Form:auctionTimeRemaining').innerHTML = formatedTime;
+        if (document.getElementById('auctionRuntime2Form:auctionTime') != null)
+            document.getElementById('auctionRuntime2Form:auctionTime').innerHTML = formatedBT + " - " + formatedET;
+    }
+
+    if (document.getElementById('auctionRuntime3Form') != null) {
+        if (document.getElementById('auctionRuntime3Form:auctionTimeRemaining') != null)
+            document.getElementById('auctionRuntime3Form:auctionTimeRemaining').innerHTML = formatedTime
+        if (document.getElementById('auctionRuntime3Form:auctionTime') != null)
+            document.getElementById('auctionRuntime3Form:auctionTime').innerHTML = formatedBT + " - " + formatedET;
+    }
+
+    setTimeout("updateAdminTimer()", updateTimerPoll);
+}
+
+// update timera pre uzivatela
+function updateUserTimer() {
+    if (beginningTime == -1 || endTime== -1){
+        setTimeout("updateUserTimer()", updateTimerPoll);
+        return;
+    }
+        
+    updateTimerBody();
+
+    if (orderVisible)
+        document.title = order + "." + " \\ " + formatedTime;
+    else 
+        document.title = formatedTime;
+
+    if (document.getElementById('auctionUserRoundTimerEndMsgForm') != null) {
+
+        if (document.getElementById('auctionUserRoundTimerEndMsgForm:auctionTimeRemaining') != null) {
+            document.getElementById('auctionUserRoundTimerEndMsgForm:auctionTimeRemaining').innerHTML = formatedTime;
+        }
+        if (document.getElementById('auctionUserRoundTimerEndMsgForm:auctionTime') != null) {
+            document.getElementById('auctionUserRoundTimerEndMsgForm:auctionTime').innerHTML = formatedBT + " - " + formatedET;
+        }
+    }
+
+    setTimeout("updateUserTimer()", updateTimerPoll);
+}
+
+/* METODY NA SYNCHRONIZACIU CASU A OSTATNYCH DAT */
+
+// metoda inicialne precita cez servlet zo servra cas, spusti sa pri prvom spusteni lubovolnej obrazovky
+function syncTime(){
+    arr = new Array('');
+    jsonrpc.call("getSyncTime", arr, afterGetSyncTime);
+}
+
+afterGetSyncTime = function afterGetSyncTime(result) {
+    if (result != null)
+        setT(result);
+}
+
+// metoda inicialne precita cez servlet zo servra hodnoty potrebne na spravne zobrazenie timera, spusti sa pri prvom spusteni lubovolnej obrazovky
+function syncTimerVariables(){
+    arr = new Array('');
+    jsonrpc.call("getSyncBeginningTime", arr, afterGetSyncBeginningTime);
+    jsonrpc.call("getSyncEndTime", arr, afterGetSyncEndTime);
+}
+
+afterGetSyncBeginningTime = function afterGetSyncBeginningTime(result) {
+    if (result != null)
+        setBeginningTime(result);
+}
+
+afterGetSyncEndTime = function afterGetSyncEndTime(result) {
+    if (result != null)
+        setEndTime(result);
+}
+
+function setT(tt) {
+    serverDateUnformated = tt;
+
+    serverDate = parseInt(serverDateUnformated.toString());
+    var currentTime = new Date();
+    var clientDate = currentTime.getTime();
+
+    syncDelay = serverDate - clientDate + 1000;
+}
+
+function setS(ss) {
+    showEnd = ss.toString();
+}
+
+function setRoundIndex(rr) {
+    // nic nesetneme, metoda sa vola na to aby sa v setting beane updatlo aktualne kolo
+}
+
+function setBeginningTime(bb) {
+    beginningTime = parseInt(bb.toString());
+}
+
+function setEndTime(ee) {
+    endTime = parseInt(ee.toString());
+}
+
+function setOrder(o) {
+    order = o;
+}
+
+function setOrderVisible(ov) {
+    orderVisible = ov;
+}
+
+/* METODY NA ZOBRAZOVANIE HLASKY S KONCOM KOLA */
+
+function showEndMsg() {
+    showEndMsgBody();
+    setTimeout("showEndMsg()", showEndMsgPoll);
+}
+
+function showEndMsgBody() {
+    var currentTime = new Date();
+    var clientDate = currentTime.getTime();
+
+    d = endTime - (clientDate + syncDelay);
+
+    if (d > showEndCheckDelta) {
+        endHasBeenShown = false;
+        isShownEnd = false;
+    }
+
+    if (d < showEndCheckDelta && !isShownEnd && !endHasBeenShown) {
+        arr = new Array('');
+        jsonrpc.call("checkEndOfRound", arr, afterEndServerCheck);
+    }
+}
+
+afterEndServerCheck = function afterEndServerCheck(result) {
+    if (result == true) {
+        isShownEnd = true;
+        endHasBeenShown = true;
+        if (document.getElementById('auctionUserRoundTimerEndMsgForm') != null) {
+            Richfaces.showModalPanel('auctionUserRoundTimerEndMsgForm:endMessage');
+        }
+
+        if (document.getElementById('auctionRuntimeForm') != null) {
+            if (document.getElementById('auctionRuntimeForm:endMessage') != null)
+                Richfaces.showModalPanel('auctionRuntimeForm:endMessage');
+        }
+
+        if (document.getElementById('auctionRuntime2Form') != null) {
+            if (document.getElementById('auctionRuntime2Form:endMessage') != null)
+                Richfaces.showModalPanel('auctionRuntime2Form:endMessage');
+        }
+
+        if (document.getElementById('auctionRuntime3Form') != null) {
+            if (document.getElementById('auctionRuntime3Form:endMessage') != null)
+                Richfaces.showModalPanel('auctionRuntime3Form:endMessage');
+        }
+
+    }
+}
+
+function closeEndMsg() {
+    endHasBeenShown = true;
+    isShownEnd = false;
+}
