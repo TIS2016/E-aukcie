@@ -43,9 +43,10 @@ class DBContext {
   }
   
   
-  public static ResultSet getLines(int id) throws SQLException{
+  public static ResultSet getLines(int id,String time) throws SQLException{
 	  PreparedStatement s;
-	  s = DBContext.getConnection().prepareStatement("Select time,fk_action,fk_user,value from auction_log WHERE fk_auction = "+ id +" ORDER BY time");
+	  s = DBContext.getConnection().prepareStatement("Select time,fk_action,fk_user,value from auction_log WHERE fk_auction = "+ id +" and time >= '"+ time +"' ORDER BY time");
+	  System.out.println("Select time,fk_action,fk_user,value from auction_log WHERE fk_auction = "+ id +" and time >= "+ time +" ORDER BY time");
 	  ResultSet r = s.executeQuery();
 	  return r;
   }
@@ -63,5 +64,53 @@ class DBContext {
 	  ResultSet r = s.executeQuery();
 	  return r;
   }
+  
+  public static ResultSet getAuctions(String startEnd) throws SQLException{
+	  PreparedStatement s;
+      if (startEnd.equals("start")){
+          s = DBContext.getConnection().prepareStatement("select distinct on (fk_user) * from auction_log where fk_action = 'setCriterionsForUser' and fk_user != 'admin' order by fk_user, time asc" );
+      }
+      else{
+          s = DBContext.getConnection().prepareStatement("select distinct on (fk_user) * from auction_log where fk_action = 'setCriterionsForUser' and fk_user != 'admin' order by fk_user, time desc" );
+      }
+
+      ResultSet r = s.executeQuery();
+      return r;
+  }
+    public static ResultSet getZaruka(String user) throws SQLException{
+        PreparedStatement s;
+        s = DBContext.getConnection().prepareStatement("select numeric_value from auction_user_criterion where fk_user = '" + user + "' and id_in_auction = 2");
+        ResultSet r = s.executeQuery();
+        return r;
+    }
+
+    public static ResultSet getFirma(String user) throws SQLException{
+        PreparedStatement s;
+        s = DBContext.getConnection().prepareStatement("Select * from users as u join client as c on fk_client=id where login = '"+ user + "'");
+        ResultSet r = s.executeQuery();
+        return r;
+    }
+
+    public static ResultSet getAuctionName(String id) throws SQLException{
+        PreparedStatement s;
+        s = DBContext.getConnection().prepareStatement("select name from auction where id='"+ id + "'");
+        ResultSet r = s.executeQuery();
+        return r;
+    }
+
+    public static ResultSet getProjectClient(String id) throws SQLException{
+        PreparedStatement s;
+        s = DBContext.getConnection().prepareStatement("select * from client as c join project as p on p.fk_client=c.id where p.id ='"+ id + "'");
+        ResultSet r = s.executeQuery();
+        return r;
+    }
+
+    public static ResultSet getCurrency(String id) throws SQLException{
+        PreparedStatement s;
+        s = DBContext.getConnection().prepareStatement("select c.description as curr from auction as a join c_currency as c on a.fk_currency=c.id where a.id='"+ id + "'");
+        ResultSet r = s.executeQuery();
+        return r;
+    }
+
 
 }
