@@ -11,8 +11,8 @@ class DBContext {
   static String url;
   static Properties properties;
   
-  public void init(String name, String password) throws SQLException {
-	  String url = "jdbc:postgresql://localhost/postgres";
+  public void init(String name, String password, String url) throws SQLException {
+
 	  Properties properties = new Properties();
 	  properties.put("user", name);
 	  properties.put("password", password);
@@ -81,5 +81,11 @@ class DBContext {
         return r;
     }
 
+    public static ResultSet getAuctionDate(String id) throws SQLException{
+        PreparedStatement s;
+        s = DBContext.getConnection().prepareStatement("select * from auction_round where fk_auction ='"+ id + "'");
+        ResultSet r = s.executeQuery();
+        return r;
+    }
 
 }

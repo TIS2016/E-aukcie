@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -18,9 +19,15 @@ public class Report extends Constants{
     private ArrayList<Row> rowsStart;
     private ArrayList<Row> rowsEnd;
     private String auctionName, aCompany,aOwner, currency;
-    private Date date,from, to;
+    private Timestamp date,from, to;
     private String[] colNames;
     private Double ciastka;
+
+    private String user = "postgres"; // username k databaze
+    private String password = "tistis"; // password k databaze
+    private String url = "jdbc:postgresql://localhost/postgres"; // URL k databaze
+
+    SimpleDateFormat sdf, sdf2, sdf3;
 
     Font TITLE_FONT = FontFactory.getFont(FONT, "Cp1250",  BaseFont.EMBEDDED,11,BaseFont.ASCENT);
     Font NORMAL_FONT = FontFactory.getFont(FONT, "Cp1250",  BaseFont.EMBEDDED,10);
@@ -31,13 +38,19 @@ public class Report extends Constants{
         rowsEnd = new ArrayList<>();
         connect = new DBContext();
         this.ciastka = null;
+
+        sdf = new SimpleDateFormat("dd.MM.yyyy");
+        sdf2 = new SimpleDateFormat("HH:mm:ss");
+        sdf3 = new SimpleDateFormat("dd-MM-yyyy");
+
         try {
-            connect.init("postgres", "tistis");
+            connect.init(user, password, url);
 
             getData("start", auctionID);
             getData("end", auctionID);
             getName(auctionID);
             getProjectClient(auctionID);
+            getAuctionDate(auctionID);
             getCurrency(auctionID);
 
             DBContext.close();
@@ -47,7 +60,7 @@ public class Report extends Constants{
         }
 
         try {
-            createPdf(auctionName + from + ".pdf");
+            createPdf(auctionName + sdf3.format(to) + ".pdf");
         } catch (DocumentException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -61,13 +74,18 @@ public class Report extends Constants{
         rowsEnd = new ArrayList<>();
         connect = new DBContext();
         this.ciastka = ciastka;
+        sdf = new SimpleDateFormat("dd.MM.yyyy");
+        sdf2 = new SimpleDateFormat("HH:mm:ss");
+        sdf3 = new SimpleDateFormat("dd-MM-yyyy");
+
         try {
-            connect.init("postgres", "tistis");
+            connect.init(user, password, url);
 
             getData("start", auctionID);
             getData("end", auctionID);
             getName(auctionID);
             getProjectClient(auctionID);
+            getAuctionDate(auctionID);
             getCurrency(auctionID);
 
             DBContext.close();
@@ -77,7 +95,7 @@ public class Report extends Constants{
         }
 
         try {
-            createPdf(auctionName + from + ".pdf");
+            createPdf(auctionName + sdf3.format(to) + ".pdf");
         } catch (DocumentException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -142,8 +160,22 @@ public class Report extends Constants{
             while (r.next()){
                 aCompany =  r.getString("company_name");
                 aOwner =  r.getString("fk_user_owner");
-                from = r.getDate("valid_from");
-                to = r.getDate("valid_until");
+                //from = r.getDate("valid_from");
+                //to = r.getDate("valid_until");
+            }
+            r.close();
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void getAuctionDate(String auctionID){
+        try {
+            ResultSet r = DBContext.getAuctionDate(auctionID);
+
+            while (r.next()){
+                from = r.getTimestamp("begining_time");
+                to = r.getTimestamp("end_time");
             }
             r.close();
         }catch (SQLException e) {
@@ -205,10 +237,7 @@ public class Report extends Constants{
 
     public void createPdf(String filename)
             throws DocumentException, IOException {
-        SimpleDateFormat sdf = new SimpleDateFormat(
-                "dd.MM.yyyy");
-        SimpleDateFormat sdf2 = new SimpleDateFormat(
-                "hh:mm");
+
         PdfCreator pdfCreator = new PdfCreator(filename);
         //PdfFont f1 = PdfFontFactory.createFont(FONT, "Cp1250", true);
         Font font = FontFactory.getFont(FONT, "Cp1250", BaseFont.EMBEDDED);
@@ -251,7 +280,7 @@ public class Report extends Constants{
                     NORMAL_FONT,ALIGN_LEFT);
         }else{
             pdfCreator.paragraph("Po započítaní  fixnej  čiastky "+ciastka +" "+ currency + " bez DPH, " +
-                            "ktorá nebola predmetom elektronickej aukcie je výsledná cena víťaznej ponuky v sume "+(Math.round(Double.valueOf(naKonci.get(0).get(3))*100)/100 + ciastka)+" "+ currency + " bez DPH.",
+                            "ktorá nebola predmetom elektronickej aukcie je výsledná cena víťaznej ponuky v sume "+(Math.round((Double.valueOf(naKonci.get(0).get(3))+ ciastka)*100)/100.0 )+" "+ currency + " bez DPH.",
                     NORMAL_FONT,ALIGN_LEFT);
         }
 
