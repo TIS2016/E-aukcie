@@ -16,13 +16,12 @@ import org.apache.poi.hssf.usermodel.HSSFFont;
 public class LogLines {
 	static DBContext connect;
 	ArrayList<AuctionLine> lines = new ArrayList<>();
-	int id;
 	HashMap<String,String> actions = new HashMap<>();
 	
-	public void readLines() throws SQLException{
+	public void readLines(int id, String date) throws SQLException{
 		connect = new DBContext();
 		connect.init("postgres", "tistis");
-		ResultSet r = DBContext.getLines(id);
+		ResultSet r = DBContext.getLines(id, date);
 		generateMap();
 		
 		 while (r.next()) {
@@ -55,7 +54,7 @@ public class LogLines {
 	      r.close(); 
 	}
 	
-	public void generateEXCel(){
+	public void generateEXCel(int id){
 		try {
 
             ResultSet r = DBContext.getName(id);
