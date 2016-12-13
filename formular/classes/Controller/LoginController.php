@@ -28,6 +28,8 @@ class LoginController extends AbstractController
                 $errormsg = array('message' => 'Wrong Login Name or Password!');
             } else {
                 $_SESSION['logged'] = true;
+                $_SESSION['name'] = $data['name'];
+                $_SESSION['login'] = $data['login'];
                 $_SESSION['admin'] = ($data['fk_role'] == 'ADMIN') ? true : false;
                 $tmp = isset($_SESSION['auctionID']) ? "/" . $_SESSION['auctionID'] : "";
                 unset($_SESSION['auctionID']);

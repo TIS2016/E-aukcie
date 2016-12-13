@@ -4,6 +4,7 @@ namespace Model;
 
 
 use DataObject\AdminFromData;
+use Validator\ClientInputValidator;
 
 class FormModel extends AbstractModel
 {
@@ -17,8 +18,12 @@ class FormModel extends AbstractModel
 
     /**
      * @param $data array
+     * @param $file
+     * @return  $id int
+     * @throws ModelException
+     * @internal param $files $_FILES
      */
-    public function saveAdminData($data)
+    public function saveAdminData($data, $file)
     {
         $dataObject = $this->saveToDataToObject($data);
 
@@ -29,6 +34,11 @@ class FormModel extends AbstractModel
             INSERT INTO auction (id, fk_auction_status, fk_auction_type, fk_currency, fk_project, name, description)
             VALUES (:id, :status, :type, :currency, :projectId, :name, :description);
         ';
+        if($file['document']['name'] == ''){
+            throw new ModelException("Nemáte vybraný žiadný súbor");
+        }
+        $this->saveFile($id, $file['document'], 'admin');
+
         $this->query($sql, array(
                 ':id' => $id,
                 ':status' => $dataObject->getStatus(),
@@ -38,16 +48,44 @@ class FormModel extends AbstractModel
                 ':name' => $dataObject->getNazov(),
                 ':description' => json_encode($preparedData))
         );
+        $this->addAuctionUser($id, 'ADMIN');
+
+
+//        if ($files['documents']) {
+//            $file_ary = $this->reArrayFiles($files['documents']);
+//
+//            foreach ($file_ary as $file) {
+//                $this->saveFile($id, $file, 'admin');
+////                print 'File Name: ' . $file['name'];
+////                print 'File Type: ' . $file['type'];
+////                print 'File Size: ' . $file['size'];
+//            }
+//        }
+
         return $id;
     }
 
-    public function saveClientData($data)
+    public function saveClientData($data, $file, $auctionId)
     {
         if (!isset($data['company_name']) || !isset($data['contact_person']) || !isset($data['telephone']) ||
             !isset($data['email']) || !isset($data['ico']) || !isset($data['dic']) || !isset($data['address'])
         ) {
             throw new ModelException("Missing data");
         }
+        if (!ClientInputValidator::isValidName($data['contact_person'])) {
+            throw new ModelException("Zle zadaná kontaktná osoba");
+        }
+        if (!ClientInputValidator::isValidTel($data['telephone'])) {
+            throw new ModelException("Zle zadané telefónne číslo");
+        }
+        if (!ClientInputValidator::isValidIco($data['ico'])) {
+            throw new ModelException("Zle zadané ičo");
+        }
+        if (!ClientInputValidator::isValidDic($data['dic'])) {
+            throw new ModelException("Zle zadané dič");
+        }
+        $this->saveFile($auctionId, $file['document'], 'user', $_SESSION['name']);
+
         $id = $this->query('SELECT max(id) FROM client', array())[0]['max'] + 1;
         $sql = '
             INSERT INTO client(id, company_name, ico, dic, address, contact_person, telephone, email)
@@ -63,6 +101,12 @@ class FormModel extends AbstractModel
                 ':address' => $data['address']
             )
         );
+        $this->addAuctionUser($auctionId, 'PARTICIPANT');
+    }
+
+    public function getadminDataFromPost($post)
+    {
+        return $this->saveToDataToObject($post);
     }
 
     /**
@@ -110,4 +154,63 @@ class FormModel extends AbstractModel
 
         return $dataObject;
     }
+
+    private function addAuctionUser($id, $role)
+    {
+        $sql = '
+            INSERT INTO auction_user (fk_auction, fk_user, fk_auction_role, user_coeficient, active_in_auction, alias)
+            VALUES (:id, :user, :role, 1, TRUE, :alias)
+        ';
+        $this->query($sql, array(
+            ':id' => $id,
+            ':user' => $_SESSION['login'],
+            ':role' => $role,
+            ':alias' => $_SESSION['name']
+        ));
+    }
+
+    private function saveFile($id, $file, $role, $uname = '')
+    {
+//        print_r($file);
+        if ($file['error'] != 0) return;
+        $fileName = $file['name'];
+        $pathInfo = pathinfo($file['name']);
+        $tmpName = $file['tmp_name'];
+        $extension = $pathInfo['extension'];
+
+        $allowedExtensions = array('pdf', 'zip', 'doc', 'docx', 'xls', 'xlsx');
+        if (is_uploaded_file($tmpName)) {
+            if (!in_array($extension, $allowedExtensions)) {
+                throw new ModelException("Wrong file format!");
+            }
+            if ($role == 'admin') {
+                $dirName = PROJECT_ROOT . '\\auction_files\\' . $id . '\\admin';
+                mkdir($dirName, 0777, true);
+                mkdir(PROJECT_ROOT . '\\auction_files\\' . $id . '\\userFiles', 0777);
+                move_uploaded_file($tmpName, $dirName . '\\' . $fileName);
+                chmod($dirName . '\\' . $fileName, 777);
+            }
+            if ($role == 'user') {
+                $dirName = PROJECT_ROOT . '\\auction_files\\' . $id . '\\userFiles';
+                move_uploaded_file($tmpName, $dirName . '\\' . $uname . '.' . $extension);
+            }
+        }
+//        echo($file['tmp_name']);
+    }
+
+//    private function reArrayFiles(&$file_post)
+//    {
+//
+//        $file_ary = array();
+//        $file_count = count($file_post['name']);
+//        $file_keys = array_keys($file_post);
+//
+//        for ($i = 0; $i < $file_count; $i++) {
+//            foreach ($file_keys as $key) {
+//                $file_ary[$i][$key] = $file_post[$key][$i];
+//            }
+//        }
+//
+//        return $file_ary;
+//    }
 }

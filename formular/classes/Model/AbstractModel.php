@@ -12,7 +12,7 @@ class AbstractModel
     protected function getConnection()
     {
         if (!self::$connection) {
-            $connection = new PDO('pgsql:host=localhost;dbname=postgres', 'postgres', 'root');
+            $connection = new PDO('pgsql:host=' . DB_HOST . ';dbname=' . DB_NAME, DB_LOGIN, DB_PASSWORD);
 //            $connection = new PDO("");
             $connection->exec("set names utf8");
             self::$connection = $connection;

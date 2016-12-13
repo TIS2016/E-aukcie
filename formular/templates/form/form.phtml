@@ -12,6 +12,9 @@ use DataObject\ProjectData;
  * @var AuctionStatusData[] $statuses
  * @var AuctionTypeData[] $types
  * @var string $message
+ * @var string $clientMessage
+ * @var string $errorMessage
+ * @var array $files
  */
 
 $editable = (isset($_SESSION['admin']) && $_SESSION['admin']) ? "" : "readonly";
@@ -20,18 +23,35 @@ if ($message != null):?>
         <strong>Info:</strong> <?= $message['message'] ?>
         <a href="/form/<?= $message['url'] ?>"><?= $_SERVER['SERVER_NAME'] . '/form/' . $message['url'] ?></a>
     </div>
-<?php endif; ?>
+<?php endif;
 
-<form method="post">
+if ($errorMessage != null): ?>
+    <div class="alert alert-danger">
+        <strong><?= $errorMessage['type'] ?></strong> <?= $errorMessage['message'] ?>
+    </div>
+<?php endif;
+
+if ($clientMessage != null): ?>
+    <div class="alert alert-success">
+        <strong>Info:</strong> <?= $clientMessage['message'] ?>
+    </div>
+    <?php
+endif;
+?>
+
+
+<form method="post" enctype="multipart/form-data">
     <?php if (isset($_SESSION['admin']) && $_SESSION['admin']): ?>
         <div class="col-md-12"><a class="btn btn-default" href="/newProject">Nový projekt</a></div>
     <?php endif; ?>
     <div class="col-md-3">
         <div class="form-group">
             <label for="projectId">Projekt:</label>
-            <select class="form-control" id="projectId" name="projectId" <?= $editable ?>>
+            <select class="form-control" id="projectId" name="projectId" <?= $editable ?> required>
+                <option disabled selected value> -- select an option --</option>
                 <?php foreach ($projects as $project): ?>
-                    <option value="<?= $project->getId() ?>"<?php if ($data->getProject() == $project->getId()) echo 'selected' ?>><?= $project->getName() ?></option>
+                    <option
+                        value="<?= $project->getId() ?>"<?php if ($data->getProject() == $project->getId()) echo ' selected' ?>><?= $project->getName() ?></option>
                 <?php endforeach; ?>
             </select>
         </div>
@@ -39,9 +59,11 @@ if ($message != null):?>
     <div class="col-md-3">
         <div class="form-group">
             <label for="auctionCurrency">Mena:</label>
-            <select class="form-control" id="auctionCurrency" name="auctionCurrency" <?= $editable ?>>
+            <select class="form-control" id="auctionCurrency" name="auctionCurrency" <?= $editable ?> required>
+                <option disabled selected value> -- select an option --</option>
                 <?php foreach ($currencies as $currency): ?>
-                    <option value="<?= $currency->getId() ?>"<?php if ($data->getCurrency() == $currency->getId()) echo 'selected' ?>><?= $currency->getDescription() ?></option>
+                    <option
+                        value="<?= $currency->getId() ?>"<?php if ($data->getCurrency() == $currency->getId()) echo ' selected' ?>><?= $currency->getDescription() ?></option>
                 <?php endforeach; ?>
             </select>
         </div>
@@ -49,9 +71,11 @@ if ($message != null):?>
     <div class="col-md-3">
         <div class="form-group">
             <label for="auctionStatus">Státus:</label>
-            <select class="form-control" id="auctionStatus" name="auctionStatus" <?= $editable ?>>
+            <select class="form-control" id="auctionStatus" name="auctionStatus" <?= $editable ?> required>
+                <option disabled selected value> -- select an option --</option>
                 <?php foreach ($statuses as $status): ?>
-                    <option value="<?= $status->getId() ?>"<?php if ($data->getStatus() == $status->getId()) echo 'selected' ?>><?= $status->getDescription() ?></option>
+                    <option
+                        value="<?= $status->getId() ?>"<?php if ($data->getStatus() == $status->getId()) echo ' selected' ?>><?= $status->getDescription() ?></option>
                 <?php endforeach; ?>
             </select>
         </div>
@@ -59,9 +83,11 @@ if ($message != null):?>
     <div class="col-md-3">
         <div class="form-group">
             <label for="auctionType">Typ:</label>
-            <select class="form-control" id="auctionType" name="auctionType" <?= $editable ?>>
+            <select class="form-control" id="auctionType" name="auctionType" <?= $editable ?> required>
+                <option disabled selected value> -- select an option --</option>
                 <?php foreach ($types as $type): ?>
-                    <option value="<?= $type->getId() ?>"<?php if ($data->getType() == $type->getId()) echo 'selected' ?>><?= $type->getDescription() ?></option>
+                    <option
+                        value="<?= $type->getId() ?>"<?php if ($data->getType() == $type->getId()) echo ' selected' ?>><?= $type->getDescription() ?></option>
                 <?php endforeach; ?>
             </select>
         </div>
@@ -70,50 +96,50 @@ if ($message != null):?>
         <div class="form-group">
             <label for="nazov-e-aukcie">Názov E-aukcie</label>
             <input class="form-control" type="text" placeholder="Názov E-aukcie" id="nazov-e-aukcie" name="nazov"
-                   value="<?= $data->getNazov() ?>" <?= $editable ?>>
+                   value="<?= $data->getNazov() ?>" <?= $editable ?> required>
         </div>
         <div class="form-group">
             <label for="vyhlasovatel">Vyhlasovateľ</label>
             <input class="form-control" type="text" placeholder="Vyhlasovateľ" id="vyhlasovatel" name="vyhlasovatel"
-                   value="<?= $data->getVyhlasovatel() ?>" <?= $editable ?>>
+                   value="<?= $data->getVyhlasovatel() ?>" <?= $editable ?> required>
         </div>
         <div class="form-group">
             <label for="prevadzkovatel-e-aukcii">Prevádzkovateľ e-aukcií</label>
             <input class="form-control" type="text" placeholder="Prevádzkovateľ e-aukcií" id="prevadzkovatel-e-aukcii"
-                   name="prevadzkovatel" value="<?= $data->getPrevadzkovatel() ?>" <?= $editable ?>>
+                   name="prevadzkovatel" value="<?= $data->getPrevadzkovatel() ?>" <?= $editable ?> required>
         </div>
         <div class="form-group">
             <label for="predmet-obstravania">Predmet obstrávania</label>
             <input class="form-control" type="text" placeholder="Predmet obstrávania" id="predmet-obstravania"
-                   name="predmet" value="<?= $data->getPredmet() ?>" <?= $editable ?>>
+                   name="predmet" value="<?= $data->getPredmet() ?>" <?= $editable ?> required>
         </div>
     </div>
     <div class="col-md-6">
         <div class="form-group">
             <label for="termin-dorucenia-podkladov">Termín doručenia podkladov</label>
             <input class="form-control" type="date" id="termin-dorucenia-podkladov" name="temrinDorucenia"
-                   value="<?= $data->getTerminDorucenia() ?>" <?= $editable ?>>
+                   value="<?= $data->getTerminDorucenia() ?>" <?= $editable ?> required>
         </div>
         <div class="form-group">
             <label for="termin-odovzdaniea-cenovej-ponuky">Termín odovzdania cenovej ponuky</label>
             <input class="form-control" type="date" id="termin-odovzdaniea-cenovej-ponuky"
-                   name="terminOdovzdania" value="<?= $data->getTerminOdovzdania() ?>" <?= $editable ?>>
+                   name="terminOdovzdania" value="<?= $data->getTerminOdovzdania() ?>" <?= $editable ?> required>
         </div>
         <div class="form-group">
             <label for="termin-e-aukcie">Termín e-aukcie</label>
             <input class="form-control" type="date" id="termin-e-aukcie" name="terminAukcie"
-                   value="<?= $data->getTerminAukcie() ?>" <?= $editable ?>>
+                   value="<?= $data->getTerminAukcie() ?>" <?= $editable ?> required>
         </div>
     </div>
     <div class="col-md-12">
         <label for="pozadovane-podklady">Požadované podklady</label>
         <textarea class="form-control" rows="5" id="pozadovane-podklady"
-                  name="pozadovanePodklady" <?= $editable ?>><?= $data->getPozadovanePodklady() ?></textarea>
+                  name="pozadovanePodklady" <?= $editable ?> required><?= $data->getPozadovanePodklady() ?></textarea>
     </div>
     <div class="col-md-12">
         <label for="kriteria-priebeh-aukcie">Kritériá, priebeh aukcie</label>
         <textarea class="form-control" rows="5" id="kriteria-priebeh-aukcie"
-                  name="kriteria" <?= $editable ?>><?= $data->getKriteria() ?></textarea>
+                  name="kriteria" <?= $editable ?> required><?= $data->getKriteria() ?></textarea>
     </div>
     <hr class="col-md-12" size="5">
     <div class="col-md-4">
@@ -150,17 +176,26 @@ if ($message != null):?>
     </div>
     <div class="col-md-8">
         <div class="form-group">
-            <label>Select Files</label>
-            <input type="file" multiple="multiple" id="multipleFile">
-            <span id="clear" class="btn btn-warning btn-xs">
-                Clear the files selection
-            </span>
-        </div>
-        <div class="form-group">
-            <a href="#" class=" btn btn-primary">Stiahnúť inf. dokumenty</a>
+            <label>Súbor: (.zip, .pdf, .doc, .docx, .xls, .xlsx)</label>
+            <input type="file" id="documents" name="document">
         </div>
         <div class="form-group">
             <input type="submit" class="btn btn-primary" name="sendData" value="Odoslať">
+        </div>
+        <div>
+            <?php
+            if ($files != null): ?>
+                <h5>Dokumenty</h5>
+                <p>Aukcia: <a href="<?= $files['adminFile'] ?>"
+                              download><?= pathinfo($files['adminFile'])['basename'] ?></a></p>
+                <h6 class="list-group-item-heading">Od užívatelov:</h6>
+                <ul class="list-group">
+                    <?php foreach ($files['userFiles'] as $file): ?>
+                        <li class="list-group-item"> <a href="<?= $file ?>" download><?= pathinfo($file)['basename'] ?></a> </li>
+                    <?php endforeach; ?>
+                </ul>
+            <?php endif; ?>
+
         </div>
     </div>
 </form>
