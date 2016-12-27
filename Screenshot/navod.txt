@@ -1,25 +1,4 @@
-head:
-
-<!-- START OF HEAD CODE -->
-<script type="text/javascript" src="html2canvas.min.js"></script>
-<script type="text/javascript" src="canvas-to-blob.min.js"></script>
-<script type="text/javascript" src="FileSaver.min.js"></script>
-<script type="text/javascript">
-	function screenshot() {
-		html2canvas(document.body, {
-			onrendered: function(canvas) {
-				canvas.toBlob(function(blob) {
-					saveAs(blob, 'output.png');
-				}, 'image/png');
-			}
-		});
-	}
-</script>
-<!-- END OF HEAD CODE -->
-
-
-body:
-
-<!-- START OF BODY CODE -->
-<button onclick="javascript: screenshot();">Screenshot</button>
-<!-- END OF BODY CODE -->
+﻿- vložte obsah priečinku "files" na miesto, kde je stránka umiestnená
+- na stránku pridajte element:
+	<iframe src="screenshot_taker.html" style="border: none; width: 100px; height: 40px;"></iframe>
+- v priečinku "embedded" je príklad vloženého modulu
