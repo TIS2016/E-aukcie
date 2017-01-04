@@ -1,0 +1,63 @@
+<?php
+use DataObject\ClientData;
+use DataObject\OwnerData;
+
+/**
+ * @var ClientData[] $clients
+ * @var OwnerData[] $owners
+ */
+
+?>
+<form method="post">
+    <div class="col-md-6">
+        <div class="form-group">
+            <label for="client">Klient:</label>
+            <select class="form-control" id="client" name="client" required>
+                <option disabled selected value> -- select an option -- </option>
+                <?php foreach ($clients as $client): ?>
+                    <option value="<?= $client->getId() ?>"><?= $client->getName() ?></option>
+                <?php endforeach; ?>
+            </select>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <label for="owner">Majitel projektu:</label>
+            <select class="form-control" id="owner" name="owner" required>
+                <option disabled selected value> -- select an option -- </option>
+                <?php foreach ($owners as $owner): ?>
+                    <option value="<?= $owner->getLogin() ?>"><?= $owner->getName() ?></option>
+                <?php endforeach; ?>
+            </select>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label for="name">Názov:</label>
+            <input class="form-control" type="text" placeholder="Názov" id="name" name="name" required>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label for="dateFrom">Od:</label>
+            <input class="form-control" type="datetime-local" id="dateFrom" name="dateFrom" required>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label for="dateTo">Do:</label>
+            <input class="form-control" type="datetime-local" id="dateTo" name="dateTo" required>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="form-group">
+            <label for="description">Popis:</label>
+            <textarea class="form-control" rows="5" id="description" name="description" required></textarea>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="form-group">
+            <input type="submit" class="btn btn-primary" name="sendProjectData" value="Odoslať">
+        </div>
+    </div>
+</form>

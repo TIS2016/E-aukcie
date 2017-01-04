@@ -1,0 +1,39 @@
+<?php
+use DataObject\AdminFromData;
+use DataObject\AuctionCurrencyData;
+use DataObject\AuctionTypeData;
+
+/**
+ * @var AdminFromData $data
+ * @var string $projectName
+ * @var AuctionCurrencyData $currency
+ * @var AuctionTypeData $type
+ */
+?>
+
+<h1><b>Aukcia:</b> <?= $data->getNazov() ?></h1>
+<p><b>Projekt: </b> <?= $projectName ?></p>
+<p><b>Mena: </b><?= $currency->getDescription() ?></p>
+<p><b>Typ: </b><?= $type->getDescription() ?></p>
+<p><b>Vyhlasovateľ: </b><?= $data->getVyhlasovatel() ?></p>
+<p><b>Prevádzkovateľ e-aukcií: </b><?= $data->getPrevadzkovatel() ?></p>
+<p><b>Predmet obstrávania: </b><?= $data->getPredmet() ?></p>
+<p><b>Termín doručenia podkladov: </b><?= $data->getTerminDorucenia() ?></p>
+<p><b>Termín odovzdania cenovej ponuky: </b><?= $data->getTerminOdovzdania() ?></p>
+<p><b>Termín e-aukcie: </b><?= $data->getTerminAukcie() ?></p>
+<p><b>Požadované podklady:</b><br><?= $data->getPozadovanePodklady() ?></p>
+<p><b>Kritériá, priebeh aukcie:</b><br><?= $data->getKriteria() ?></p>
+
+<form method="post">
+    <div class="form-group">
+        <input type="submit" name="cancelFormData" value="Zrušiť" class="btn btn-danger">
+    </div>
+    <span class="lead">Alebo:</span><br>
+
+    <a href="/form/pdf" target="_blank" download>Sťiahnúť pdf</a><br><br>
+    <div class="form-group">
+        <label for="emails">E-maili, oddelené s čiarkou</label>
+        <input type="text" id="emails" name="emails" class="form-control">
+        <input type="submit" name="saveMails" value="Poslať" class="btn btn-primary">
+    </div>
+</form>
