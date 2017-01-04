@@ -16,7 +16,7 @@ class LoginModel extends AbstractModel
         if ($pass != '') $pass = sha1($pass);
         $sql = '
             SELECT 
-                fk_role, name, login
+                fk_role, name, login, fk_client
             FROM public.users
             WHERE
                 login=:login AND password=:password

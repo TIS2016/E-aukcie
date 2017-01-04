@@ -1,15 +1,15 @@
 <?php
 /**
- * @var String $message
+ * @var String[] $errormsg
  */
 ?>
 
 <div class="container">
     <form class="form-signin" method="post">
         <?php
-        if ($message != null):?>
+        if ($errormsg != null):?>
             <div class="alert alert-danger">
-                <strong>Error:</strong> <?= $message['message'] ?>
+                <strong>Error:</strong> <?= $errormsg['message'] ?>
             </div>
         <?php endif; ?>
         <h2 class="form-signin-heading">Please sign in</h2>

@@ -23,7 +23,7 @@ class ProjectModel extends AbstractModel
     }
 
     /**
-     * @param $data[]
+     * @param $data []
      * @return int
      */
     public function saveProject($data)
@@ -46,5 +46,20 @@ class ProjectModel extends AbstractModel
             )
         );
         return $id;
+    }
+
+    /**
+     * @param $id
+     * @return ProjectData
+     */
+    public function getProjectName($id)
+    {
+        $sql = '
+            SELECT id, name FROM project WHERE id = :id;
+        ';
+        $result = $this->query($sql, array(':id' => $id));
+        $project = new ProjectData();
+        $project->setName($result[0]['name']);
+        return $project;
     }
 }

@@ -31,6 +31,7 @@ class LoginController extends AbstractController
                 $_SESSION['name'] = $data['name'];
                 $_SESSION['login'] = $data['login'];
                 $_SESSION['admin'] = ($data['fk_role'] == 'ADMIN') ? true : false;
+                $_SESSION['id'] = $data['fk_client'];
                 $tmp = isset($_SESSION['auctionID']) ? "/" . $_SESSION['auctionID'] : "";
                 unset($_SESSION['auctionID']);
                 header('Location:/form'.$tmp);
@@ -38,7 +39,7 @@ class LoginController extends AbstractController
             }
         }
         $view = new Template('login/login');
-        $view->assign('message', $errormsg);
+        $view->assign('errormsg', $errormsg);
         return $view->render();
     }
 }

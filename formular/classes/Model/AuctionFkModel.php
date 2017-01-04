@@ -28,6 +28,15 @@ class AuctionFkModel extends AbstractModel
         return $currencies;
     }
 
+    public function getCurrency($id)
+    {
+        $sql = 'SELECT description FROM c_currency WHERE id=:id';
+        $result = $this->query($sql, array(':id' => $id));
+        $currency = new AuctionCurrencyData();
+        $currency->setDescription($result[0]['description'])->setId($id);
+        return $currency;
+    }
+
     public function getStatuses()
     {
         $sql = 'SELECT * FROM c_auction_status';
@@ -52,5 +61,13 @@ class AuctionFkModel extends AbstractModel
             $types[] = $type;
         }
         return $types;
+    }
+
+    public function getType($id){
+        $sql = 'SELECT description FROM c_auction_type WHERE id=:id';
+        $result = $this->query($sql, array(':id' => $id));
+        $type = new AuctionTypeData();
+        $type->setDescription($result[0]['description'])->setId($id);
+        return $type;
     }
 }

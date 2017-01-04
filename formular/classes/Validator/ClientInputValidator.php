@@ -6,7 +6,7 @@ class ClientInputValidator
 {
     public static function isValidName($name)
     {
-        $name_regex = '/^(?:\p{L}|[_\-]){3,25}$/u';
+        $name_regex = '/^(?:\p{L}|[_\- ]){3,25}$/u';
         return preg_match($name_regex, $name);
     }
 

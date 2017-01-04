@@ -17,7 +17,7 @@ class FormModel extends AbstractModel
     }
 
     /**
-     * @param $data array
+     * @param $data AdminFromData
      * @param $file
      * @return  $id int
      * @throws ModelException
@@ -25,7 +25,7 @@ class FormModel extends AbstractModel
      */
     public function saveAdminData($data, $file)
     {
-        $dataObject = $this->saveToDataToObject($data);
+        $dataObject = $data;//$this->saveToDataToObject($data);
 
         $preparedData = $dataObject->getDataArray();
 
@@ -34,14 +34,20 @@ class FormModel extends AbstractModel
             INSERT INTO auction (id, fk_auction_status, fk_auction_type, fk_currency, fk_project, name, description)
             VALUES (:id, :status, :type, :currency, :projectId, :name, :description);
         ';
-        if($file['document']['name'] == ''){
-            throw new ModelException("Nemáte vybraný žiadný súbor");
-        }
-        $this->saveFile($id, $file['document'], 'admin');
+//        if ($file['document']['name'] == '') {
+//            throw new ModelException("Nemáte vybraný žiadný súbor");
+//        }
+//        $this->saveFile($id, $file['document'], 'admin');
+
+
+        $dirName = PROJECT_ROOT . '\\auction_files\\' . $id . '\\admin';
+        mkdir($dirName, 0777, true);
+        mkdir(PROJECT_ROOT . '\\auction_files\\' . $id . '\\userFiles', 0777);
+        rename(PROJECT_ROOT . '\\auction_files\\tmpFiles\\' . $file, PROJECT_ROOT . '\\auction_files\\' . $id . '\\admin\\' . $file);
 
         $this->query($sql, array(
                 ':id' => $id,
-                ':status' => $dataObject->getStatus(),
+                ':status' => "WAITING",
                 ':type' => $dataObject->getType(),
                 ':currency' => $dataObject->getCurrency(),
                 ':projectId' => $dataObject->getProject(),
@@ -65,6 +71,34 @@ class FormModel extends AbstractModel
         return $id;
     }
 
+    public function saveAdminDataToSession($data, $file)
+    {
+//        print_r($file);
+        if ($file['error'] != 0) {
+            if ($file['error'] == 4) throw new ModelException("Nemáte vybraný žiadný súbor");
+            return;
+        }
+
+        $dataObject = $this->saveToDataToObject($data);
+        $_SESSION['adminFromData']['data'] = serialize($dataObject);
+
+        $fileName = $file['name'];
+        $pathInfo = pathinfo($file['name']);
+        $tmpName = $file['tmp_name'];
+        $extension = $pathInfo['extension'];
+
+        $allowedExtensions = array('pdf', 'zip', 'doc', 'docx', 'xls', 'xlsx');
+        if (is_uploaded_file($tmpName)) {
+            if (!in_array($extension, $allowedExtensions)) {
+                throw new ModelException("Wrong file format!");
+            }
+            $dirName = PROJECT_ROOT . '\\auction_files\\tmpFiles';
+            move_uploaded_file($tmpName, $dirName . '\\' . $fileName);
+            chmod($dirName . '\\' . $fileName, 777);
+        }
+        $_SESSION['adminFromData']['file'] = $fileName;
+    }
+
     public function saveClientData($data, $file, $auctionId)
     {
         if (!isset($data['company_name']) || !isset($data['contact_person']) || !isset($data['telephone']) ||
@@ -84,14 +118,19 @@ class FormModel extends AbstractModel
         if (!ClientInputValidator::isValidDic($data['dic'])) {
             throw new ModelException("Zle zadané dič");
         }
-        $this->saveFile($auctionId, $file['document'], 'user', $_SESSION['name']);
+        $this->saveFile($auctionId, $file['document'], 'user', $_SESSION['login']);
 
         $id = $this->query('SELECT max(id) FROM client', array())[0]['max'] + 1;
+//        $sql = '
+//            INSERT INTO client(id, company_name, ico, dic, address, contact_person, telephone, email)
+//            VALUES (:id, :company_name, :ico, :dic, :address, :contact_person, :telephone, :email)';
         $sql = '
-            INSERT INTO client(id, company_name, ico, dic, address, contact_person, telephone, email)
-            VALUES (:id, :company_name, :ico, :dic, :address, :contact_person, :telephone, :email)';
+            UPDATE client
+            SET company_name = :company_name, ico = :ico, dic = :dic, address = :address, contact_person = :contact_person, telephone = :telephone, email = :email
+            WHERE id = :id;
+        ';
         $this->query($sql, array(
-                ':id' => $id,
+                ':id' => $_SESSION['id'],
                 ':company_name' => $data['company_name'],
                 ':contact_person' => $data['contact_person'],
                 ':telephone' => $data['telephone'],
@@ -107,6 +146,30 @@ class FormModel extends AbstractModel
     public function getadminDataFromPost($post)
     {
         return $this->saveToDataToObject($post);
+    }
+
+    public function createUsers($emails)
+    {
+        $emails = explode(',', $emails);
+        foreach ($emails as $email) {
+            $uname = explode('@', $email)[0];
+            $sql = 'SELECT count(login) FROM users WHERE login=:uname';
+            if ($this->query($sql, array(':uname' => $uname))[0]['count'] == 0) {
+                echo '<h1>' . $uname . '</h1>';
+                $id = $this->query('SELECT max(id) FROM client', array())[0]['max'] + 1;
+                $sql = 'INSERT INTO client(id) VALUES(:id)';
+                $this->query($sql, array(':id' => $id));
+
+                $sql = 'INSERT INTO users(login, password, fk_role, fk_client)
+                        VALUES (:login, :password, :fk_role, :fk_client)';
+                $this->query($sql, array(
+                    ':login' => $uname,
+                    ':password' => '',
+                    ':fk_role' => 'USER',
+                    ':fk_client' => $id
+                ));
+            }
+        }
     }
 
     /**
@@ -140,7 +203,6 @@ class FormModel extends AbstractModel
 
         $dataObject->setProject(intval($data['projectId']));
         $dataObject->setCurrency($data['auctionCurrency']);
-        $dataObject->setStatus($data['auctionStatus']);
         $dataObject->setType($data['auctionType']);
         $dataObject->setNazov($data['nazov']);
         $dataObject->setVyhlasovatel($data['vyhlasovatel']);

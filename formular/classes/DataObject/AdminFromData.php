@@ -19,10 +19,6 @@ class AdminFromData
     /**
      * @var string
      */
-    private $status;
-    /**
-     * @var string
-     */
     private $type;
     /**
      * @var string
@@ -102,24 +98,6 @@ class AdminFromData
     public function setCurrency($currency)
     {
         $this->currency = $currency;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getStatus()
-    {
-        return $this->status;
-    }
-
-    /**
-     * @param string $status
-     * @return $this
-     */
-    public function setStatus($status)
-    {
-        $this->status = $status;
         return $this;
     }
 
@@ -313,7 +291,6 @@ class AdminFromData
         $res = array();
         $res['projectId'] = $this->project;
         $res['auctionCurrency'] = $this->currency;
-        $res['auctionStatus'] = $this->status;
         $res['auctionType'] = $this->type;
         $res['nazov'] = $this->nazov;
         $res['vyhlasovatel'] = $this->vyhlasovatel;

@@ -1,6 +1,6 @@
 <?php
 
-use PdfGen\AuctionPdf;
+//use PdfGen\AuctionPdf;
 
 session_start();
 
