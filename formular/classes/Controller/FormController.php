@@ -6,9 +6,9 @@ namespace Controller;
 use DataObject\AdminFromData;
 use Model\AuctionFileModel;
 use Model\AuctionFkModel;
-use Model\FooterModel;
 use Model\FormModel;
 use Model\ModelException;
+use Model\PdfModel;
 use Model\ProjectModel;
 use PdfGen\PDF;
 use View\Template;
@@ -39,9 +39,10 @@ class FormController extends AbstractController
 
     public function doPdf($urlParts)
     {
-//        echo 'asd';
+        $pdfModel = new PdfModel();
         $pdf = new PDF();
         $pdf->dataToPdf(unserialize($_SESSION['adminFromData']['data']));
+        $pdf->setAuctionId($pdfModel->getAuctionId());
         $pdf->Output();
     }
 

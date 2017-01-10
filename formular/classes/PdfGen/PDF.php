@@ -3,10 +3,21 @@ namespace PdfGen;
 
 use DataObject\AdminFromData;
 use DateTime;
-use PdfGen\FPDF;
 
 class PDF extends FPDF
 {
+    /**
+     * @var integer
+     */
+    private $AuctionId;
+
+    /**
+     * @param int $AuctionId
+     */
+    public function setAuctionId($AuctionId)
+    {
+        $this->AuctionId = $AuctionId;
+    }
     /**
      * @param AdminFromData $data
      */
@@ -23,8 +34,8 @@ class PDF extends FPDF
         $p5 = 'Požadované doklady na učasť v aukcii: ' . $data->getPozadovanePodklady();
         $p6 = 'Kritéria a priebeh auckie: ' . $data->getKriteria();
         $p7 = 'ako prihlasovací login použite prvú časť Vašej e-mailovej adresy vaslogin@xxxxxxx.xx';
-        $p8 = 'Prihlásiť sa môžete na:';
-        $loginPage = $_SERVER['HTTP_HOST'].'/login';
+        $p8 = 'Prihlasovací formulár nájdete na adrese:';
+        $loginPage = $_SERVER['HTTP_HOST'].'/form/'.$this->AuctionId;
 
 
         $this->AddPage();
